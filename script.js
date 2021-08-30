@@ -1,5 +1,154 @@
+/*1.1.4
+Урок с кодом
+Errors
+Обычно вам нужно избегать ошибок, но в этом упражнении вы будете порождать ошибки. Это поможет вам понять, какие типы ошибок возникают в разных ситуациях, и привыкнуть распознавать их в будущем.
+
+Вам нужно реализовать 2 функции. Ваша задача — породить две ошибки внутри специально созданных функций.
+
+reference
+Сделайте так, чтобы код внутри функции reference порождал ошибку типа ReferenceError.
+
+Вспомните, что ReferenceError возникает, когда используется несуществующий идентификатор (имя). Например, если ваша функция возвращает значение константы, но такой константы не существует. Или в каком-нибудь выражении (фрагмент кода, который вычисляется в значение, как формула) используется неизвестный идентификатор.
+
+type
+Сделайте так, чтобы код внутри функции type порождал ошибку типа TypeError.
+
+Вспомните, что TypeError возникает, когда вы используете неправильный тип. Например, если вы пытаетесь вызвать численную константу как функцию.
+
+ВАЖНО
+Ошибки должны генерироваться внутри функций reference и type.*/
+/*Решение
+function reference() {
+  console.log(a+b)
+  }
+  
+  function type() {
+  let notAFunction='1';
+  notAFunction(12)
+  }
+*/
 /*
-1.2.2 
+1.1.14
+Урок с кодом
+Default To
+Реализуйте функцию defaultTo, которая принимает значение первым аргументом и его значение по-умолчанию вторым. Если первое значение null, NaN или undefined, то должно быть возвращено значение по-умолчанию. Если нет, то нужно вернуть само значение (первый аргумент).
+
+Пример:
+
+console.log(defaultTo(1, 10)); // 1;
+console.log(defaultTo(undefined, 10)); // 10;*/
+/*Решение
+const defaultTo = (value, defaultValue) => {
+  if (Boolean(value) === false){
+     return (defaultValue)
+ } else { 
+   return (value)
+ }
+ };
+ 
+*/
+/*
+1.1.16
+Урок с кодом
+compareWithPrecision
+Напишите функцию, которая сравнивает два числа с определенной погрешностью.
+
+Пример:
+
+compareWithPrecision(0.1 + 0.2, 0.3, 0.0001) // true*/
+/*
+Решение
+function compareWithPrecision(a, b, precision) {
+  let c=precision;
+if ((a>=b-c && a<=b+c)){
+  return(true)
+}else{
+  return(false)
+  
+}
+
+}	*/
+
+
+
+/*
+1.1.18
+Урок с кодом
+Capitalize
+Реализуйте функцию capitalize, которая принимает строку в качестве аргумента и возвращает новую строку, в которой первые буквы слов заглавные, а все остальные - строчные.
+
+Пример:
+
+const str = 'sOme RanDoM sTRING';
+console.log(capitalize(str)); // Some Random String*/
+/*
+Решение
+function capitalize(str){
+return (str.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1).toLowerCase()).join(' '))
+
+}
+*/
+/*
+1.1.19
+Урок с кодом
+Stop gninnipS My sdroW!
+Реализуйте функцию reverseLongWords, которая принимает строку в качестве аргумента и возвращает новую строку, в которой каждое слово, которое содержит 5 или больше символов, написана наоборот.
+
+Примеры:
+
+reverseLongWords('Hey fellow warriors'); // Hey wollef sroirraw
+reverseLongWords('This is a test'); // This is a test
+reverseLongWords('This is another test'); // This is rehtona test
+*/
+/*
+Решение
+const reverseLongWords = (str) => {
+  let word = str.split(/\s+/)
+    for (let i = 0; i < word.length; i++){
+      if (word[i].length >= 5) {
+        word[i]=word[i].split("").reverse().join("");
+      }
+    }
+    return(word.join(" "))
+  };
+*/
+/*1.1.21
+Урок с кодом
+На входе есть текст, разделенный переносами строк На выходе каждая строка должна быть обернута тегом
+
+ 
+
+Wrap Paragraph
+Реализуйте функцию wrapInParagraph, которая принимает на вход текст, разделененный переносами строк и возвращает новый текст, в котором каждая строка обернута в тег
+
+.
+
+Пример:
+
+const text = `Some
+simple multiline
+text`;
+
+console.log(wrapInParagraph(text)); // <p>Some</p>
+// <p>simple multiline</p>
+// <p>text</p>
+
+const text2 = 'some\ntext';
+
+console.log(wrapInParagraph(text2)); // <p>some</p>
+// <p>text</p>
+*/
+/*
+Решение
+function wrapInParagraph(str){
+  let phrase = str.split(/\n/)
+   for (let i = 0; i < phrase.length; i++){
+     phrase[i]=`<p>${phrase[i]}</p>`
+   }
+   return(phrase.join('\n'))
+ }
+ */
+/*1.2.2 
 Реализуйте функцию lettersCount, которая принимает строку в качестве аргумента и возвращает объект, в котором ключами являются все буквы, которые есть в строке, а значениями - их количество в строке.
 
 Перед подсчетом буквы необходимо привести к нижнему регистру. Большая буква и маленькая должны считаться одинаковой буквой.

@@ -672,28 +672,72 @@ const once = fn => {
 };
 
 */
+/*
+2-ое решение
 const once = fn => {
-  let i = 0
-  function a() {
-     console.log(i)
-    if (i < 1) {
-   console.log(i)
-        i++
-    console.log(i)
-    console.log(fn)
-       
-     }
-  }
-  return a
-}
-    
- 
+  let a = true
+   return function () {
+     if (a) {
+       a=false
+       fn()
+           }
+       }
+ }
   
- 
-  
+  const f = () => console.log('hi!');
+  const onceF = once(f);
+  console.log(onceF())
+  console.log(onceF())
+  */
 
-let hello = () => {
-  console.log('Hello World')
-}
-once(hello)
-once(hello)
+  /*
+  1.3.11
+  Array Filters
+  Для этой задачи вам нужно будет ознакомиться с методом массива filter, который принимает функцию-коллбэк для фильтрации массива.
+  
+  Реализуйте набор готовых к использованию функций для arr.filter:
+  
+  inRange(a, b) – число находится между a и b (включительно). 
+  Если аргумент или элемент массива можно привести к числу,
+  то функция должна сначала приводить его к числу, а потом проверять условие. 
+  Если a > b, то функция должна возвращать false для всех элементов массива
+  
+  inArray([...]) – значение находится в данном массиве.
+  
+  notInArray([...]) – значение не находится в данном массиве.
+  Они должны использоваться таким образом:
+  
+  arr.filter(inRange(3,6)) – выбирает только значения между 3 и 6 (включительно).
+  arr.filter(inArray([1,2,3])) – выбирает только элементы, совпадающие с одним из элементов массива
+  arr.filter(notInArray([1,2,3])) – выбирает только те элементы,
+  которые не совпадают ни с одним из элементов массива
+  Пример:
+  
+  let arr = [1, 2, 3, 4, 5, 6, 7, true, undefined, NaN];
+  
+  console.log(arr.filter(inRange(3, 6))); // [3, 4, 5, 6]
+  console.log(arr.filter(inArray([1, 2, 10, undefined]))); // [1, 2, undefined]
+  console.log(arr.filter(notInArray([1, 2, 3, 4, 5, 6, 7, true]))); // [undefined, NaN]
+  */
+ 
+  const inRange = (a, b) => {
+    return function(x) {
+        return x >= a && x <= b;
+    };
+    }
+    const inArray = arr => {
+     return function(x) {
+        return arr.includes(x);
+    };
+    }
+    const notInArray = arr =>  {
+     return function(x) {
+        return arr.includes(!x);
+    };
+    };
+    
+    let arr = [1, 2, 3, 4, 5, 6, 7, true, undefined, NaN];
+  
+    console.log(arr.filter(inRange(3, 6))); // [3, 4, 5, 6]
+    console.log(arr.filter(inArray([1, 2, 10, undefined]))); // [1, 2, undefined]
+    console.log(arr.filter(notInArray([1, 2, 3, 4, 5, 6, 7, true]))); // [undefined, NaN]

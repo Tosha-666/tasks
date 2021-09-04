@@ -719,25 +719,184 @@ const once = fn => {
   console.log(arr.filter(inArray([1, 2, 10, undefined]))); // [1, 2, undefined]
   console.log(arr.filter(notInArray([1, 2, 3, 4, 5, 6, 7, true]))); // [undefined, NaN]
   */
- 
+ /*Решение
   const inRange = (a, b) => {
-    return function(x) {
-        return x >= a && x <= b;
+    return function (x) {
+            return x >= a && x <= b;
     };
+    
     }
     const inArray = arr => {
-     return function(x) {
+      return function (x) {
+        
         return arr.includes(x);
     };
     }
     const notInArray = arr =>  {
-     return function(x) {
-        return arr.includes(!x);
+      return function (x) {
+     //  if (!arr.includes(x))
+        return !arr.includes(x);
     };
     };
     
-    let arr = [1, 2, 3, 4, 5, 6, 7, true, undefined, NaN];
+    let arr = [1, 2, 3, 3, 3, 4, 5, 6, 7, '8', 'some str', true, NaN];
   
     console.log(arr.filter(inRange(3, 6))); // [3, 4, 5, 6]
     console.log(arr.filter(inArray([1, 2, 10, undefined]))); // [1, 2, undefined]
-    console.log(arr.filter(notInArray([1, 2, 3, 4, 5, 6, 7, true]))); // [undefined, NaN]
+    console.log(arr.filter(notInArray([1, NaN, true, '8', 212]))); // [undefined, NaN]*/
+
+
+    /*1.3.13
+    createObjectCalculator
+Реализуйте функцию createObjectCalculator, которая принимает в качестве аргументов два числа, а возвращает следующий объект:
+
+Объект calculator (калькулятор) с тремя методами:
+
+read(a, b) (читать) принимает два значения и сохраняет их как свойства объекта. 
+sum() (суммировать) возвращает сумму сохранённых значений. 
+mul() (умножить) перемножает сохранённые значения и возвращает результат.
+
+Гарантируется, что оба числа, передаваемых в read всегда будут числами.
+
+Пример:
+
+const calculator = createObjectCalculator(2, 3);
+console.log(calculator.sum()); // 2 + 3 = 5
+console.log(calculator.mul()); // 2 * 3 = 6
+calculator.read(12, 34);
+console.log(calculator.sum()); // 12 + 34 = 46
+console.log(calculator.mul()); // 12 * 34 = 408*/
+/*
+const createObjectCalculator = (initialA, initialB) => {
+  const calculator = {
+    sum: function() {
+      return this.a + this.b;
+    },
+  
+    mul: function() {
+      return this.a * this.b;
+    },
+  
+    read: function() {
+      this.a = initialA;
+      this.b = initialB;
+    }
+  }
+  console.log(calculator)
+  
+  return(calculator)
+ 
+  }
+  
+const calculator = createObjectCalculator(2, 3);
+console.log(calculator)
+console.log(calculator.sum()); // 2 + 3 = 5
+console.log(calculator.mul()); // 2 * 3 = 6
+console.log(calculator.read(12, 34))
+console.log(calculator);
+*/
+
+
+/*1.4.3
+Урок с кодом
+Реализуйте функцию getField, которая принимает массив объектов в качестве первого аргумента и ключ объекта в строке в качестве второго. 
+Функция должна вернуть новый массив. На месте объекта должно находиться значение поля объекта, находящееся по ключу, переданному в функцию вторым аргументом. 
+Массив гарантированно состоит из объектов. Если в данном объекте, нет такого поля, то вместо значения поля должен быть undefined. 
+Если массив не передан, то функция должна вернуть пустой массив.
+
+Пример:
+
+const data = [
+  {
+    name: 'Denis',
+    age: 25,
+  },
+  {
+    name: 'Ivan',
+  },
+  {
+    name: 'Ann',
+    age: 18,
+  },
+];
+
+console.log(getField(data, 'age'));
+// [25, undefined, 18]*/
+
+/*Решение
+const getField = (data, field) => {
+  const newArr = data.map((el) => 
+    el[field]
+    
+       )
+  return(newArr)
+  
+};
+const data = [
+  {
+    name: 'Denis',
+    age: 25,
+  },
+  {
+    name: 'Ivan',
+  },
+  {
+    name: 'Ann',
+    age: 18,
+  },
+];
+getField(data, 'age');
+// [25, undefined, 18]
+*/
+/*1.4.4
+Create Usernames
+Дан массив пользователей. Необходимо преобразовать массив так, чтобы у каждого пользователя появился username. 
+Поле username создается путем конкатенации firstName в нижнем регистре, первой буквы lastName в нижнем регистре и года рождения пользователя, 
+который необходимо вычислить из текущей даты и возраста пользователя. 
+Учтите, что функция должна работать даже в том случае, если вызвать ее, к примеру, через 10 лет.
+
+Данные всегда будут передаваться в указаном ниже формате.
+Возраст представлен в виде целого числа.
+Фамилия всегда будет в формате "N.", где N - первая буква фамилии.
+Порядок объектов в массиве должен сохраняться.
+Порядок полей в объекте не важен.
+Пример:
+
+Данные на входе:
+
+const data = [
+{ firstName: 'Emily', lastName: 'N.', country: 'Ireland', continent: 'Europe', age: 30, language: 'Ruby' },
+{ firstName: 'Nor', lastName: 'E.', country: 'Malaysia', continent: 'Asia', age: 20, language: 'Clojure' }
+];
+Данные на выходе:
+
+const processedData = createUsernames(data);
+console.log(processedData); // [
+// { firstName: 'Emily', lastName: 'N.', country: 'Ireland', continent: 'Europe', age: 30, language: 'Ruby',
+//  username: 'emilyn1990' },
+// { firstName: 'Nor', lastName: 'E.', country: 'Malaysia', continent: 'Asia', age: 20, language: 'Clojure',
+//  username: 'nore2000' }
+// ];
+*/
+
+
+const createUsernames = users => {
+  return users.map(e => ({
+    ...e,
+    username: `${e.firstName.toLowerCase()}${e.lastName[0].toLowerCase()}${new Date().getFullYear() - e.age-1}`
+}));
+};
+  
+  const data = [
+    { firstName: 'Emily', lastName: 'N.', country: 'Ireland', continent: 'Europe', age: 30, language: 'Ruby' },
+    { firstName: 'Nor', lastName: 'E.', country: 'Malaysia', continent: 'Asia', age: 20, language: 'Clojure' }
+    ];
+    
+    
+    const processedData = createUsernames(data);
+    console.log(processedData); // [
+    // { firstName: 'Emily', lastName: 'N.', country: 'Ireland', continent: 'Europe', age: 30, language: 'Ruby',
+    //  username: 'emilyn1990' },
+    // { firstName: 'Nor', lastName: 'E.', country: 'Malaysia', continent: 'Asia', age: 20, language: 'Clojure',
+    //  username: 'nore2000' }
+    // ];

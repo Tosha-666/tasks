@@ -766,7 +766,7 @@ console.log(calculator.mul()); // 2 * 3 = 6
 calculator.read(12, 34);
 console.log(calculator.sum()); // 12 + 34 = 46
 console.log(calculator.mul()); // 12 * 34 = 408*/
-/*
+
 const createObjectCalculator = (initialA, initialB) => {
   const calculator = {
     sum: function() {
@@ -794,7 +794,7 @@ console.log(calculator.sum()); // 2 + 3 = 5
 console.log(calculator.mul()); // 2 * 3 = 6
 console.log(calculator.read(12, 34))
 console.log(calculator);
-*/
+
 
 
 /*1.4.3
@@ -879,11 +879,14 @@ console.log(processedData); // [
 // ];
 */
 
-
+/*Решение
 const createUsernames = users => {
   return users.map(e => ({
+    //оператор spread
     ...e,
-    username: `${e.firstName.toLowerCase()}${e.lastName[0].toLowerCase()}${new Date().getFullYear() - e.age-1}`
+    
+    username: `${e.firstName.toLowerCase()}${e.lastName[0].toLowerCase()}${new Date().getFullYear() - e.age - 1}`
+    
 }));
 };
   
@@ -900,3 +903,105 @@ const createUsernames = users => {
     // { firstName: 'Nor', lastName: 'E.', country: 'Malaysia', continent: 'Asia', age: 20, language: 'Clojure',
     //  username: 'nore2000' }
     // ];
+    */
+   /*1.4.5
+    Урок с кодом
+    Реализуйте функцию calculatePrice, которая принимает массив заказов, а возвращает сумму их стоимостей. 
+    Каждый объект заказа содержит поле price, в котором хранится стоимость товара в числовом формате.
+    
+    Суммой пустого массива должен быть 0. Если массив не передан, то суммой так же должен быть 0.
+    
+    Пример:
+    
+    const data = [
+      {
+        type: 'food',
+        price: 130,
+      },
+      {
+        type: 'clothes',
+        price: 7300,
+      },
+      {
+        type: 'other',
+        price: 1400,
+      },
+    ];
+    
+    calculatePrice(data); // 8830‬
+    */
+/*Решение
+const calculatePrice = (orders) => {
+  if (!Array.isArray(orders)) {
+        console.log(0)
+  } else {
+    const newArr = orders.reduce((acc, el) => {
+        console.log(acc)
+        return (acc+=el.price)
+      },0
+      )
+    console.log(newArr)
+  }
+      
+};
+      
+
+const data = [
+  {
+    type: 'food',
+    price: 130,
+  },
+  {
+    type: 'clothes',
+    price: 7300,
+  },
+  {
+    type: 'other',
+    price: 1400,
+  },
+];
+calculatePrice(data);
+*/
+/* 1.4.6
+Урок с кодом
+Дан список информации о людях.
+
+Необходимо вернуть массив, содержащий самого старшего человека в списке. 
+Если несколько людей имеют одинаковый наибольший возраст, то нужно вернуть массив, содержащий их всех.
+
+Возраст хранится в поле age.
+
+Данные на входе:
+
+const data =[
+    { firstName: 'Gabriel', lastName: 'X.', country: 'Monaco', continent: 'Europe', age: 49, language: 'PHP' },
+    { firstName: 'Odval', lastName: 'F.', country: 'Mongolia', continent: 'Asia', age: 38, language: 'Python' },
+    { firstName: 'Emilija', lastName: 'S.', country: 'Lithuania', continent: 'Europe', age: 19, language: 'Python' },
+    { firstName: 'Sou', lastName: 'B.', country: 'Japan', continent: 'Asia', age: 49, language: 'PHP' },
+]
+const result = getMostSenior(data);
+Данные на выходе:
+
+console.log(result);
+// [
+//     { firstName: 'Gabriel', lastName: 'X.', country: 'Monaco', continent: 'Europe', age: 49, language: 'PHP' },
+//     { firstName: 'Sou', lastName: 'B.', country: 'Japan', continent: 'Asia', age: 49, language: 'PHP' },
+// ]
+*/
+
+const getMostSenior = humans => {
+  const newArr = humans.reduce((oldest, human) => {
+    return (oldest.age) > human.age ? oldest : human;
+  })
+    let maxAge = newArr.age
+    const allMax = humans.filter(el => el.age == maxAge)
+  return(allMax)
+};
+
+const data =[
+  { firstName: 'Odval', lastName: 'F.', country: 'Mongolia', continent: 'Asia', age: 38, language: 'Python' },
+  { firstName: 'Gabriel', lastName: 'X.', country: 'Monaco', continent: 'Europe', age: 49, language: 'PHP' },
+  { firstName: 'Emilija', lastName: 'S.', country: 'Lithuania', continent: 'Europe', age: 19, language: 'Python' },
+  { firstName: 'Sou', lastName: 'B.', country: 'Japan', continent: 'Asia', age: 49, language: 'PHP' },
+]
+const result = getMostSenior(data);

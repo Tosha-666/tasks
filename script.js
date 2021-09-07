@@ -766,9 +766,11 @@ console.log(calculator.mul()); // 2 * 3 = 6
 calculator.read(12, 34);
 console.log(calculator.sum()); // 12 + 34 = 46
 console.log(calculator.mul()); // 12 * 34 = 408*/
-
+/*Решение
 const createObjectCalculator = (initialA, initialB) => {
   const calculator = {
+    a: initialA,
+    b: initialB, 
     sum: function() {
       return this.a + this.b;
     },
@@ -777,10 +779,13 @@ const createObjectCalculator = (initialA, initialB) => {
       return this.a * this.b;
     },
   
-    read: function() {
+    read: function(initialA,initialB) {
       this.a = initialA;
       this.b = initialB;
+      console.log(this)
+      console.log(this.a)
     }
+    
   }
   console.log(calculator)
   
@@ -793,8 +798,9 @@ console.log(calculator)
 console.log(calculator.sum()); // 2 + 3 = 5
 console.log(calculator.mul()); // 2 * 3 = 6
 console.log(calculator.read(12, 34))
+console.log(calculator.sum())
 console.log(calculator);
-
+*/
 
 
 /*1.4.3
@@ -988,7 +994,8 @@ console.log(result);
 //     { firstName: 'Sou', lastName: 'B.', country: 'Japan', continent: 'Asia', age: 49, language: 'PHP' },
 // ]
 */
-
+/*
+Решение
 const getMostSenior = humans => {
   const newArr = humans.reduce((oldest, human) => {
     return (oldest.age) > human.age ? oldest : human;
@@ -1005,3 +1012,65 @@ const data =[
   { firstName: 'Sou', lastName: 'B.', country: 'Japan', continent: 'Asia', age: 49, language: 'PHP' },
 ]
 const result = getMostSenior(data);
+*/
+/*
+2.1.2
+Invert
+Напишите функцию, которая создает объект, состоящий из инвертированных ключей и значений объекта.
+
+Если объект содержит повторяющиеся значения, последующие значения перезаписывают присвоения свойств предыдущих значений.
+
+Пример:
+
+
+
+*/
+
+/*Решение
+function invert (obj) {
+  return Object.entries(obj).reduce((acc, [value,key]) => {
+    acc[key] = value;
+    return acc;
+}, {})
+}
+
+
+invert({ a: 1, b: 2, c: 3 }) // { 1: a, 2: b, 3: c }
+
+*/
+
+/*
+2.1.3
+Напишите функцию, которая проверяет на равенство два объекта, учитывая их вложенность.
+
+Два объекта считаются равными, если у них все свойства одинаковы. В случае, если одно из свойств - само объект, мы сравниваем на равенство эти объекты по тому же алгоритму. Пример:
+
+const firstObject = {
+  a: {
+    b: {
+      c: 1,
+      d: 'string',
+      e: {
+        num: 1
+      }
+    }
+  }
+};
+
+const secondObject = {
+  a: {
+    b: {
+      e: {
+        num: 1,
+      }
+      d: 'string',
+      c: 1,
+    }
+  }
+};
+
+deepEqual(firstObject, secondObject); // true
+deepEqual({ a:1, b: 3 }, { b: 2, a: 1}); // false
+deepEqual(1, 2); // false
+deepEqual(true, false); // false
+*/

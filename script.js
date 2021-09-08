@@ -529,14 +529,16 @@ optionalChaining(obj, ["a", "b", "c", "d", "e"]) // undefined
 optionalChaining(obj, ["a", "c", "d"]) // undefined
 optionalChaining(obj, ["b", "d", "a"]) // undefined*/
 
-
-/*//Решение
+/*
+//Решение
 function optionalChaining(obj, chain) {
   return getProp(obj, 0);
  
   function getProp(o, index) {
     const key = chain[index];
+    console.log(key)
     const value = o[key];
+    console.log(value)
  
     if (typeof value === 'undefined') return undefined;
  
@@ -1043,7 +1045,8 @@ invert({ a: 1, b: 2, c: 3 }) // { 1: a, 2: b, 3: c }
 2.1.3
 Напишите функцию, которая проверяет на равенство два объекта, учитывая их вложенность.
 
-Два объекта считаются равными, если у них все свойства одинаковы. В случае, если одно из свойств - само объект, мы сравниваем на равенство эти объекты по тому же алгоритму. Пример:
+Два объекта считаются равными, если у них все свойства одинаковы. 
+В случае, если одно из свойств - само объект, мы сравниваем на равенство эти объекты по тому же алгоритму. Пример:
 
 const firstObject = {
   a: {
@@ -1074,3 +1077,231 @@ deepEqual({ a:1, b: 3 }, { b: 2, a: 1}); // false
 deepEqual(1, 2); // false
 deepEqual(true, false); // false
 */
+//Решение
+function deepEqual(obj1, obj2) {
+  if (obj1 === obj2) return true;
+
+  if (obj1 == null || typeof obj1 != "object" ||
+  obj2 == null || typeof obj2 != "object") return false;
+  
+  let keysA = Object.keys(obj1), keysB = Object.keys(obj2);
+  console.log(keysA)
+  console.log(keysB)
+  console.log(keysA.length)
+  console.log(keysB.length)
+  if (keysA.length != keysB.length) return false;
+  
+  for (let key of keysA) {
+    console.log(key)
+      if (!keysB.includes(key) || !deepEqual(obj1[key], obj2[key])) return false;
+  }
+  
+      return true;
+  } 
+  const firstObject = {"test":{"name":"Misha","order":{"price":20}}};
+  const secondObject = {"test":{"order":{"price":20},"name":"Misha"}}
+
+
+// const firstObject = {
+//   a: {
+//     b: {
+//       c: 1,
+//       d: 'string',
+//       e: {
+//         num: 1
+//       }
+//     }
+//   }
+// };
+
+// const secondObject = {
+//   a: {
+//     b: {
+//       e: {
+//         num: 1,
+//       },
+//       d: 'string',
+//       c: 1,
+//     }
+//   }
+// };
+// const firstObject = {"name":"Misha","order":{"price":20}}
+// const secondObject = null 
+console.log(deepEqual(firstObject, secondObject))
+
+/*// 2.1.5
+Sum
+Реализуйте функцию sum, которая принимает неограниченное количество чисел в качестве аргументов и возвращает их сумму. Вызов функции без аргументов должен вернуть 0. В случае, если аргумент не является числом и не может быть приведен к таковому, нужно проигнорировать его. Если его можно привести к числу, то приведите его и прибавьте, как и обычное число.
+
+Пример использования:
+
+console.log(
+    sum(1, 2, 3, 4, 5, 6),
+); // 21
+console.log(
+    sum(-10, 15, 100),
+); // 105
+console.log(
+    sum(),
+); // 0
+console.log(
+    sum(1, 'fqwfqwf', {}, [], 3, 4, 2, true, false),
+); // 11. Прим: true было приведено к 1 (см. преобразование типов в js)
+*/
+
+const sum = () => {
+
+};
+
+
+/*// 2.1.6
+Merge
+Реализуйте функцию merge, которая будет принимать неограниченное количество объектов в качестве аргументов и возвращать новый объект, который должен содержать все поля со всех объектов. 
+Если ключи в объектах повторяются, то каждый последующий объект при совпадении ключей должен иметь больший приоритет над предыдущим. 
+Порядок полей в результирующем объекте не важен.
+
+Пример:
+
+console.log(
+  merge(
+    {
+      name: 'John',
+      age: 22,
+    },
+    {
+      surname: 'Klein',
+      age: 20,
+      profession: 'student',
+    },
+    {
+      profession: 'frontend developer',
+      country: 'USA',
+    }
+  )
+);
+
+// {
+//   name: 'John',
+//   surname: 'Klein',
+//   age: 20,
+//   profession: 'frontend developer',
+//   country: 'USA',
+// }
+*/
+//Решение
+const merge = () => {
+
+};
+
+
+/*// 2.1.8
+Languages Statistic
+Реализуйте функцию getLanguagesStatistic, которая поможет IT журналу подвести итоги 2019 года по популярности использования языков программирования. На входе функция получает массив отзывов пользователей. Необходимо вернуть объект в формате { languageName: count, anotherLanguageName: anotherCount, ... }, где languageName - название языка в строке, а count - число отзывов, которые оставили программисты, использующие этот язык. При этом следует учитывать только те отзывы пользователей, которые были оставлены в 2019 году. Год отзыва хранится в поле year, язык - в поле language.
+
+Отзыв предоставлен в следующем формате:
+
+{ firstName: 'Noah', lastName: 'M.', country: 'Switzerland', continent: 'Europe', age: 19, language: 'C', year: 2019 }
+Данные на входе:
+
+const data = [
+  { firstName: 'Noah', lastName: 'M.', country: 'Switzerland', continent: 'Europe', age: 19, language: 'C', year: 2019 },
+  { firstName: 'Anna', lastName: 'R.', country: 'Liechtenstein', continent: 'Europe', age: 52, language: 'JavaScript', year: 2019 },
+  { firstName: 'Piter', lastName: 'G.', country: 'Sweden', continent: 'Europe', age: 30, language: 'JavaScript', year: 2019 },
+  { firstName: 'Ramon', lastName: 'R.', country: 'Paraguay', continent: 'Americas', age: 29, language: 'Ruby', year: 2014 },
+  { firstName: 'George', lastName: 'B.', country: 'England', continent: 'Europe', age: 81, language: 'C', year: 2016 },
+];
+const result = getLanguagesStatistic(data);
+Данные на выходе:
+
+console.log(result);
+// { 
+//   C: 1, 
+//   JavaScript: 2 
+// }
+*/
+//Решение
+const getLanguagesStatistic = (feedbacks) => {
+  //code here
+  };
+  
+
+  //2.1.11
+  /*getArraysCounts
+Реализуйте функцию getArraysCounts, которая принимает массив в качестве аргумента. Функция должна вернуть Map, в котором ключи - все уникальные элементы в массиве, а значения - количество этих элементов в массиве.
+
+Пример:
+
+const obj = { name: 123 };
+const data = [1, 1, 1, 2, 2, 2, 2, true, true, obj, obj, { name: 123 }];
+const counts = getArraysCounts(data); // экземпляр Map
+console.log(counts.get(1)); // 3
+console.log(counts.get(2)); // 4
+console.log(counts.get(true)); // 2
+console.log(counts.get(obj)); // 2
+*/
+
+//Решение
+
+const getArraysCounts = (arr) => {
+  //code here
+  };
+  
+
+
+
+ /* //2.1.12
+
+ Unique
+Реализуйте функцию unique, которая принимает массив в качестве аргумента и возвращает новый массив, в котором содержатся только уникальные значения из исходного массива. Исходный массив не должен изменяться.
+
+Порядок элементов должен сохраняться.
+
+Используйте Set для реализации этой функции.
+
+Пример:
+
+const data1 = [1, 2, 3, 3, 4, 4];
+console.log(unique(data1)); // [1, 2, 3, 4]
+
+const obj = { name: 'John' };
+const data2 = [obj, obj, obj, { name: 'John' }];
+const result = unique(data2);
+console.log(result); // [{ name: 'John' }, { name: 'John' }]
+
+console.log(result[0] === obj); // true
+console.log(result[1] === obj); // false
+*/
+
+//Решение
+const unique = (arr) => {
+
+};
+
+
+/*//2.1.14
+getDaysBetweenDates
+Реализуйте функцию getDaysBetweenDates которая принимает на вход две даты и возвращает количество полных дней между ними.
+
+getDaysBetweenDates('1-1-2020', '1-2-2020'); // -> 1
+
+Функция должна корректно работать с объектом Date
+getDaysBetweenDates(new Date(2011, 6, 2, 6, 0), new Date(2012, 6, 2, 18, 0)); // -> 366
+
+Функция должна корректно рабоать со значениями в миллисекундах
+getDaysBetweenDates(1409796000000, 1409925600000); // -> 1
+
+Если входные параметры - невалидные даты, то функция вовращает NaN:
+getDaysBetweenDates('1-1-2020', 'дата'); // -> NaN
+
+Если аргументов меньше 2-х, то функция должна пробросить исключение TypeError
+getDaysBetweenDates(null); // -> TypeError
+
+new Date(null) - валидная запись, которая вернёт количество миллисекунд, прошедшее с 01.01.1970 https://en.wikipedia.org/wiki/Unix_time
+*/
+
+//Решение
+
+const getDaysBetweenDates = () => {
+  //code here
+};
+

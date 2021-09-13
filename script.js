@@ -1077,7 +1077,8 @@ deepEqual({ a:1, b: 3 }, { b: 2, a: 1}); // false
 deepEqual(1, 2); // false
 deepEqual(true, false); // false
 */
-//Решение
+//Решение https://question-it.com/questions/37005/krasnorechivoe-uprazhnenie-po-javascript-glubokoe-sravneniehttps://question-it.com/questions/37005/krasnorechivoe-uprazhnenie-po-javascript-glubokoe-sravnenie
+/*
 function deepEqual(obj1, obj2) {
   if (obj1 === obj2) return true;
 
@@ -1128,10 +1129,12 @@ function deepEqual(obj1, obj2) {
 // const firstObject = {"name":"Misha","order":{"price":20}}
 // const secondObject = null 
 console.log(deepEqual(firstObject, secondObject))
-
+*/
 /*// 2.1.5
 Sum
-Реализуйте функцию sum, которая принимает неограниченное количество чисел в качестве аргументов и возвращает их сумму. Вызов функции без аргументов должен вернуть 0. В случае, если аргумент не является числом и не может быть приведен к таковому, нужно проигнорировать его. Если его можно привести к числу, то приведите его и прибавьте, как и обычное число.
+Реализуйте функцию sum, которая принимает неограниченное количество чисел в качестве аргументов и возвращает их сумму.
+Вызов функции без аргументов должен вернуть 0. В случае, если аргумент не является числом и не может быть приведен к таковому, нужно проигнорировать его. 
+Если его можно привести к числу, то приведите его и прибавьте, как и обычное число.
 
 Пример использования:
 
@@ -1148,10 +1151,24 @@ console.log(
     sum(1, 'fqwfqwf', {}, [], 3, 4, 2, true, false),
 ); // 11. Прим: true было приведено к 1 (см. преобразование типов в js)
 */
-
-const sum = () => {
-
+/*
+//Решение
+const sum = (...args) => {
+  let sum=0
+  for (let i = 0; i < args.length; i++){
+    arg = Number(args[i])
+    console.log(arg)
+    if (isNaN(arg)) {
+      arg = 0
+      console.log(arg)
+    } 
+      console.log(arg, typeof (arg))
+      sum += arg
+    }
+    return (sum)
 };
+
+console.log(sum(1, 'fqwfqwf', {}, [], 3, 4, 2, true, false))*/
 
 
 /*// 2.1.6
@@ -1188,11 +1205,29 @@ console.log(
 //   country: 'USA',
 // }
 */
-//Решение
-const merge = () => {
-
+/*//Решение
+const merge = (...obj) => {
+return Object.assign(...obj)
 };
 
+
+console.log(
+  merge(
+    {
+      name: 'John',
+      age: 22,
+    },
+    {
+      surname: 'Klein',
+      age: 20,
+      profession: 'student',
+    },
+    {
+      profession: 'frontend developer',
+      country: 'USA',
+    }
+  )
+);*/
 
 /*// 2.1.8
 Languages Statistic
@@ -1219,15 +1254,44 @@ console.log(result);
 //   JavaScript: 2 
 // }
 */
-//Решение
+/*//Решение
 const getLanguagesStatistic = (feedbacks) => {
-  //code here
-  };
+        let result = {};
+       let counter = 0;
+        let counter2 = 0;
+        feedbacks.map((i) => {
+          let { language, year } = i;
+          if (year >= 2019) {
+          if (language == "JavaScript") {
+              counter++
+              result[language] = counter 
+              } else if (language == "C")
+            {
+              counter2++
+              result[language] = counter2
+              
+            };
+            
+          } 
+        });
+        return result;
+      };  
   
+  const data = [
+    { firstName: 'Noah', lastName: 'M.', country: 'Switzerland', continent: 'Europe', age: 19, language: 'C', year: 2019 },
+    { firstName: 'Anna', lastName: 'R.', country: 'Liechtenstein', continent: 'Europe', age: 52, language: 'JavaScript', year: 2019 },
+    { firstName: 'Piter', lastName: 'G.', country: 'Sweden', continent: 'Europe', age: 30, language: 'JavaScript', year: 2019 },
+    { firstName: 'Ramon', lastName: 'R.', country: 'Paraguay', continent: 'Americas', age: 29, language: 'Ruby', year: 2014 },
+    { firstName: 'George', lastName: 'B.', country: 'England', continent: 'Europe', age: 81, language: 'C', year: 2016 },
+  ];
+  const result = getLanguagesStatistic(data);
+console.log(result)
+*/
 
   //2.1.11
   /*getArraysCounts
-Реализуйте функцию getArraysCounts, которая принимает массив в качестве аргумента. Функция должна вернуть Map, в котором ключи - все уникальные элементы в массиве, а значения - количество этих элементов в массиве.
+Реализуйте функцию getArraysCounts, которая принимает массив в качестве аргумента. 
+Функция должна вернуть Map, в котором ключи - все уникальные элементы в массиве, а значения - количество этих элементов в массиве.
 
 Пример:
 
@@ -1243,11 +1307,33 @@ console.log(counts.get(obj)); // 2
 //Решение
 
 const getArraysCounts = (arr) => {
-  //code here
+  let newSet = new Set(arr)
+  let newMap = new Map()
+  for (item of newSet) {
+    if (!newMap.has(item)) {
+      newMap.set(item, 0)
+      // console.log(newMap)
+    }
+  }
+  newMap.forEach((el) => {
+    console.log(el)
+      // value===
+    })
+  // newMap.add()
+  return(newSet)
   };
   
 
 
+  const obj = { name: 123 };
+const data = [1, 1, 1, 2, 2, 2, 2, true, true, obj, obj, { name: 123 }];
+console.log(getArraysCounts(data))
+const counts = getArraysCounts(data); // экземпляр Map
+
+// console.log(counts.get(1)); // 3
+// console.log(counts.get(2)); // 4
+// console.log(counts.get(true)); // 2
+// console.log(counts.get(obj)); // 2
 
  /* //2.1.12
 

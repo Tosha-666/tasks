@@ -1304,29 +1304,36 @@ console.log(counts.get(true)); // 2
 console.log(counts.get(obj)); // 2
 */
 
-//Решение
+/*//Решение
 
 const getArraysCounts = (arr) => {
   let newSet = new Set(arr)
   let newMap = new Map()
   for (item of newSet) {
     if (!newMap.has(item)) {
-      newMap.set(item, 0)
-      // console.log(newMap)
+      newMap.set(item, 1)
     }
+      }
+  for ([el, val] of newMap) {
+    arr.forEach(element => {
+      if (el === element && !Number.isNaN(element)) {
+        newMap.set(el, val++)
+
+      } else if (Number.isNaN(el)&&Number.isNaN(element)) {
+         console.log(element)
+        console.log(Number.isNaN(element), element!==element)
+        newMap.set(NaN, val++)
+      }
+    });
   }
-  newMap.forEach((el) => {
-    console.log(el)
-      // value===
-    })
-  // newMap.add()
-  return(newSet)
+  return (newMap)
+  
   };
   
 
 
   const obj = { name: 123 };
-const data = [1, 1, 1, 2, 2, 2, 2, true, true, obj, obj, { name: 123 }];
+const data = [1, 1, 1, 2, 2, 2, 2, true, true, obj, obj, { name: 123 }, NaN, NaN, NaN];
 console.log(getArraysCounts(data))
 const counts = getArraysCounts(data); // экземпляр Map
 
@@ -1334,11 +1341,15 @@ const counts = getArraysCounts(data); // экземпляр Map
 // console.log(counts.get(2)); // 4
 // console.log(counts.get(true)); // 2
 // console.log(counts.get(obj)); // 2
+*/
+
+
 
  /* //2.1.12
 
  Unique
-Реализуйте функцию unique, которая принимает массив в качестве аргумента и возвращает новый массив, в котором содержатся только уникальные значения из исходного массива. Исходный массив не должен изменяться.
+Реализуйте функцию unique, которая принимает массив в качестве аргумента и возвращает новый массив, в котором содержатся только уникальные значения из исходного массива. 
+Исходный массив не должен изменяться.
 
 Порядок элементов должен сохраняться.
 
@@ -1359,11 +1370,16 @@ console.log(result[1] === obj); // false
 */
 
 //Решение
+/*
 const unique = (arr) => {
+ 
+  return [...new Set(arr)];
+}
+  const data1 = [1, 2, 3, 3, 4, 4];
+  console.log(unique(data1)); // [1, 2, 3, 4]
+  */
 
-};
-
-
+  
 /*//2.1.14
 getDaysBetweenDates
 Реализуйте функцию getDaysBetweenDates которая принимает на вход две даты и возвращает количество полных дней между ними.

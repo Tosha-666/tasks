@@ -1402,8 +1402,143 @@ new Date(null) - валидная запись, которая вернёт ко
 */
 
 //Решение
+/*
 
-const getDaysBetweenDates = () => {
-  //code here
+const getDaysBetweenDates = function (start, end) {
+  (start == null) ? start = new Date(0) : start = start;
+  (end == null) ? end = new Date(0) : end = end;
+
+if (arguments.length < 2) {
+  throw new TypeError('TypeError')
+  } else {
+    const between1= end-start
+    const between = Date.parse(end) - Date.parse(start)
+  if (!isNaN(between)) {
+      if (between >= 0) {
+        return (Math.floor(between / 86400000))
+      }
+      else if (between < 0) {
+        if ((Math.ceil(between / 86400000)) == -0) {
+          return(0)
+        }
+        return (Math.ceil(between / 86400000))
+      }
+  }
+   else if (!isNaN(between1)) {
+      if (between1 >= 0) {
+        return (Math.floor(between1 / 86400000))
+      }
+      else if (between1 < 0) {
+        if ((Math.ceil(between1 / 86400000)) == -0) {
+          return(0)
+        }
+        return (Math.ceil(between1 / 86400000))
+        
+      }
+     }
+    else {
+      return(NaN)
+    }
+    }
 };
 
+
+console.log(getDaysBetweenDates('1-1-2020', '1-2-2020'))
+// console.log(getDaysBetweenDates(new Date(2011, 6, 2, 6, 0), new Date(2012, 6, 2, 18, 0)))
+// console.log(getDaysBetweenDates(1409796000000, 1409925600000))
+// console.log(getDaysBetweenDates(null))
+// console.log(getDaysBetweenDates(null, '1971'))
+// console.log(getDaysBetweenDates('1-1-2020', null))
+// console.log(getDaysBetweenDates('1-1-2020', 'дата'))
+
+
+
+// getDaysBetweenDates('1-1-2020', '1-2-2020')
+// getDaysBetweenDates(new Date(2011, 6, 2, 6, 0), new Date(2012, 6, 2, 18, 0))
+// getDaysBetweenDates(1409796000000, 1409925600000)
+// getDaysBetweenDates(null)
+// getDaysBetweenDates('1-1-2020', 'дата')
+*/
+/*
+
+2.2.2
+IsEmpty
+Напишите функцию isEmpty, которая возвращает true, если у объекта нет свойств(у самого объекта, не у прототипов), иначе возвращает false.
+
+const obj = Object.create(null);
+isEmpty(obj); // -> true
+isEmpty({ prop: 'value' }); // -> false
+Напишите функцию isEmptyWithProtos, которая возвращает true, если у объекта и его прототипов(не включая Object.prototype) нет свойств, иначе возвращает false.
+
+const protoObj = Object.create(null);
+const obj = Object.create(protoObj);
+isEmptyWithProtos(obj); // -> true
+isEmptyWithProtos({}); // -> false
+*/
+
+
+//Решение
+
+
+/*function isEmpty(obj) {
+  if (Object.keys(obj).length == 0) {
+          return(true)
+}
+return(false)
+  console.log((obj.hasOwnProperty()))
+  // let a = (Boolean(Object.getPrototypeOf(obj)))
+  // return 
+  // console.log(a,b)
+  // return(((a&&b)==true)?true:false)
+  (obj.__proto__)
+// return((Object.getPrototypeOf(obj))?false:true)
+}(obj.__proto__)
+*/
+
+/*
+function isEmptyWithProtos(obj) {
+  if ((Object.keys(obj).length == 0)) {
+    console.log(true)
+    if (keys in obj) {
+      console.log(true)
+    }
+    // if (!Object.getPrototypeOf(obj)) {
+    //   return (true)
+    // }
+  } 
+return (false)
+}*/
+
+function isEmptyWithProtos(obj) {
+  if ((Object.keys(obj).length == 0)) {
+    
+    if (!Boolean(obj.__proto__)) {
+     console.log (obj.__proto__) 
+  return(true)
+ }
+    
+    // console.log(Object.getPrototypeOf(obj))
+    // if (!Object.getPrototypeOf(obj)) {
+    //   return (true)
+    // }
+  } 
+return (false)
+}
+
+/*const obj = Object.create(null);
+console.log(isEmpty(obj)); // -> true
+console.log(isEmpty({ prop: 'value' })); // -> false
+const testCase = Object.create({});
+ console.log(testCase.__proto__)
+// const checkCaseImmutability = Object.create(testProto);
+console.log(isEmpty(testCase))*/
+
+const protoObj = Object.create(null);
+const obj = Object.create(protoObj);
+console.log(isEmptyWithProtos(obj)); // -> true
+console.log(isEmptyWithProtos({})); // -> false
+console.log(isEmptyWithProtos(protoObj))
+
+// const testCase = Object.create(testProto);
+// const checkCaseImmutability = Object.create(testProto);
+// console.log(isEmptyWithProtos(testCase))

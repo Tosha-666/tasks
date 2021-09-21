@@ -1506,25 +1506,55 @@ function isEmptyWithProtos(obj) {
     //   return (true)
     // }
   } 
-return (false)
-}*/
-
-function isEmptyWithProtos(obj) {
-  if ((Object.keys(obj).length == 0)) {
-    
-    if (!Boolean(obj.__proto__)) {
-     console.log (obj.__proto__) 
-  return(true)
- }
-    
-    // console.log(Object.getPrototypeOf(obj))
+return (false) 
+   // console.log(Object.getPrototypeOf(obj))
     // if (!Object.getPrototypeOf(obj)) {
     //   return (true)
     // }
-  } 
-return (false)
-}
 
+}*/
+/*=============================================================================================================
+
+function isEmptyWithProtos(obj) {
+  console.log((Object.getPrototypeOf(obj)))
+  
+// for (key in (obj.__proto__))
+//       console.log(key);
+      
+  if (Object.keys(obj).length === 0) {
+    
+    if ((Object.getPrototypeOf(obj))===obj.__proto__) {
+      // console.log(obj.constructor)
+      // console.log(Object.getPrototypeOf(obj))
+       return (true)
+    }
+    // if (Boolean(Object.getPrototypeOf(obj)))
+    //   console.log(Object.getPrototypeOf(obj))
+    // if (obj.__proto__)
+    // console.log(obj.__proto__)
+    
+   
+  }
+  // console.log(obj.constructor)
+  //  console.log(Object.getPrototypeOf(obj))
+    return (false)
+  
+    //   console.log(obj);
+  
+    //   for (let key in obj) {
+    //         console.log(key)
+    
+    //     if (obj.hasOwnProperty(key)) {
+    //       console.log(key)
+      
+    // //          return false;     
+    //     } console.log(key)
+    //     // return true;
+  
+}
+// 
+
+  
 /*const obj = Object.create(null);
 console.log(isEmpty(obj)); // -> true
 console.log(isEmpty({ prop: 'value' })); // -> false
@@ -1532,13 +1562,148 @@ const testCase = Object.create({});
  console.log(testCase.__proto__)
 // const checkCaseImmutability = Object.create(testProto);
 console.log(isEmpty(testCase))*/
-
+/*===============================================================================================
+const newObj = {
+  a: 1,
+  b: 2,
+  c: 3,
+  
+}
 const protoObj = Object.create(null);
 const obj = Object.create(protoObj);
-console.log(isEmptyWithProtos(obj)); // -> true
-console.log(isEmptyWithProtos({})); // -> false
-console.log(isEmptyWithProtos(protoObj))
+console.log(isEmptyWithProtos(obj)); // -> true (пустой объект с пустым прото)
+console.log(isEmptyWithProtos({})); // -> false (пустой объект с прототипом со свойствами)
+console.log(isEmptyWithProtos(protoObj)) // -> true (пустой объект без прото)
+console.log(isEmptyWithProtos(newObj))
 
 // const testCase = Object.create(testProto);
 // const checkCaseImmutability = Object.create(testProto);
 // console.log(isEmptyWithProtos(testCase))
+============================================================================================
+
+*/
+/*
+2.2.4
+Урок с кодом
+Library
+Реализуйте функционал для работы с книгами в библиотеке:
+
+создание книги(добавление новой книги в библиотеку)
+Выдача книги читателю
+Получение книги от читателя
+Получение у кого книга сейчас находится
+Необходимо создать контруктор объектов Book, который будет создавать объекты со следующими полями:
+
+name - имя книги
+author - имя автора
+year - год книги
+reader - текущий читатель книги(у кого она на руках) - если она сейчас свободна - должно быть равно null
+Необходимо реализовать на прототипе следующие методы работы с книгой:
+
+isAvaliable() // true/false - доступна ли книга для выдачи или она у кого-то на руках
+takeBook(readerName) - должен выдавать книгу читателю, если она доступна для выдачи и записывать его имя в reader, 
+возвращает true, если выдача книги возможна и она произведена, false, если книга уже выдана
+returnBook() - регистрирует возврат книги, устанавливает reader в null, возвращает true, если книга была на руках, 
+false если книга итак в библиотеке
+changeBookName(newBookName) - изменяет название книги на newBookName, возвращает true/false, в зависимости от результата
+changeAuthorName(newAuthorName) - изменяет имя автора на newAuthorName, возвращает true/false в зависимости от результата
+getCurrentReader() - возвращает имя текущего читателя или null, если книга доступна для выдачи
+
+*/
+/*
+//Решение
+function Book(name, author, year) {
+     
+  this.name = name
+  this.author = author
+  this.year = year
+  this.reader = null
+}
+Book.prototype.isAvaliable = function() {
+  if (this.reader == null) {
+          return(true)
+        }
+return(false)
+    }
+ Book.prototype.takeBook = function(readerName) {
+   if (this.reader === null) {
+     this.reader = readerName
+     return(true)
+   }
+   return(false)
+  }
+Book.prototype.returnBook = function () {
+  if (this.reader == null) {
+      return(false)
+    }
+    this.reader = null
+     return (true)
+  }
+  Book.prototype.changeBookName = function (newBookName) {
+      this.name = newBookName
+      return(true)
+  }
+  Book.prototype.changeAuthorName = function(newAuthorName) {
+        this.author = newAuthorName
+        return (true)
+      
+  }
+  Book.prototype.getCurrentReader=function () {
+    if (this.reader == null) {
+        return(null)
+    } else {
+      return(this.reader)
+      }
+    }
+
+
+console.log(Book.prototype)
+*/
+
+
+/*2.2.6
+Урок с кодом
+Prototypes Decorator
+Необходимо добавить возможность логирования в функцию add класса Addition
+
+Используя прототип класса Addition добавить декоратор к функции add, дающий возможность логировать ее вызов
+При этом результат выполнения add должен быть как и в оригинале, но дополнительно при вызове выводить в консоль 'called'
+
+Менять изначальную функцию, класс или созданный объект нельзя.
+Код можно писать только в обозначенной зоне.
+
+Пример:
+const startedValue = new Addition(5);
+const result = startedValue.add(3,5,6) //В консоль выводится "called"
+console.log(result) //В консоль выводится 19
+*/
+/*
+//Решение
+class Addition {
+  constructor (num) {
+    this.num = num;
+  }
+  
+  add (...nums) {
+    const sum = (a, b) => a + b;
+    return this.num + nums.reduce(sum);
+  }
+  }
+  // Write you code here
+  var add = Addition.prototype.add;
+
+  Addition.prototype.add = function(...nums) {
+    console.log('called');
+    return add.call(this, ...nums);
+  }
+    
+
+// add = consLogDecoration(add)
+console.log(Addition.prototype.add)
+
+  
+  // End of code
+  const startedValue = new Addition(5);
+const result = startedValue.add(3,5,6) //В консоль выводится "called"
+console.log(result) //В консоль выводится 19
+  */

@@ -1511,66 +1511,63 @@ return (false)
     // if (!Object.getPrototypeOf(obj)) {
     //   return (true)
     // }
-
-}*/
-/*=============================================================================================================
-
-function isEmptyWithProtos(obj) {
-  console.log((Object.getPrototypeOf(obj)))
-  
-// for (key in (obj.__proto__))
-//       console.log(key);
-      
-  if (Object.keys(obj).length === 0) {
-    
-    if ((Object.getPrototypeOf(obj))===obj.__proto__) {
-      // console.log(obj.constructor)
+   // console.log(obj.constructor)
       // console.log(Object.getPrototypeOf(obj))
-       return (true)
+}*/
+/*
+function isEmptyWithProtos(obj) {
+  if (Object.keys(obj).length === 0) {
+    for (let key in (obj)) {
+      console.log(key);
+      if (key in (obj)) {
+        return(false)
+      }
     }
-    // if (Boolean(Object.getPrototypeOf(obj)))
-    //   console.log(Object.getPrototypeOf(obj))
-    // if (obj.__proto__)
-    // console.log(obj.__proto__)
+          return (true)
     
-   
-  }
-  // console.log(obj.constructor)
-  //  console.log(Object.getPrototypeOf(obj))
+  } 
+     
+    
+  
     return (false)
-  
-    //   console.log(obj);
-  
-    //   for (let key in obj) {
-    //         console.log(key)
-    
-    //     if (obj.hasOwnProperty(key)) {
-    //       console.log(key)
-      
-    // //          return false;     
-    //     } console.log(key)
-    //     // return true;
-  
 }
 // 
 
   
-/*const obj = Object.create(null);
-console.log(isEmpty(obj)); // -> true
-console.log(isEmpty({ prop: 'value' })); // -> false
-const testCase = Object.create({});
- console.log(testCase.__proto__)
-// const checkCaseImmutability = Object.create(testProto);
-console.log(isEmpty(testCase))*/
-/*===============================================================================================
+// const obj = Object.create(null);
+// console.log(isEmpty(obj)); // -> true
+// console.log(isEmpty({ prop: 'value' })); // -> false
+// const testCase = Object.create({});
+//  console.log(testCase.__proto__)
+// // const checkCaseImmutability = Object.create(testProto);
+// console.log(isEmpty(testCase))
+//===============================================================================================
 const newObj = {
   a: 1,
   b: 2,
   c: 3,
   
 }
+// class User {
+//   constructor() {}
+// }
+const person = new Object({})
+// console.log(person);
+const sayHi = function() {
+  console.log('Привет');
+};
+const pers1 = {
+  name:1
+}
+Object.setPrototypeOf(person, pers1)
+
+// console.log(person);
+
+
+
 const protoObj = Object.create(null);
 const obj = Object.create(protoObj);
+console.log(isEmptyWithProtos(person));
 console.log(isEmptyWithProtos(obj)); // -> true (пустой объект с пустым прото)
 console.log(isEmptyWithProtos({})); // -> false (пустой объект с прототипом со свойствами)
 console.log(isEmptyWithProtos(protoObj)) // -> true (пустой объект без прото)
@@ -1579,9 +1576,9 @@ console.log(isEmptyWithProtos(newObj))
 // const testCase = Object.create(testProto);
 // const checkCaseImmutability = Object.create(testProto);
 // console.log(isEmptyWithProtos(testCase))
-============================================================================================
 
 */
+
 /*
 2.2.4
 Урок с кодом
@@ -1707,3 +1704,154 @@ console.log(Addition.prototype.add)
 const result = startedValue.add(3,5,6) //В консоль выводится "called"
 console.log(result) //В консоль выводится 19
   */
+
+/*
+//2.2.8
+  Object Create
+В данном задании вам нужно будет реализовать полифл Object.create.
+
+Реализуйте аналог стандартной фунции Object.create - создаёт и возвращает новый объект, прототипом которого является первый аргумент, 
+переданный в функцию. Если передан второй аргумент - устанавливает его в качестве свойств для нового объекта. 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+
+Ваша функция должна принимать два параметра:
+
+prototype (обязательный) - объект или null (но не undefined), который будет являтся прототипом для созданного объекта.
+properties (optional) - аргумент, который установит свойства для нового объекта (будет передан в Object.defineProperties).
+Если параметры фунции отсутствуют или prototype НЕ является объектом или null, то необходимо пробросить TypeError.
+
+В результате Object.create вернет созданный объект с внутренним свойством [[Prototype]],
+ установленным в значение переданного в аргументе prototype. Если properties передан и НЕ является undefined, 
+ то будет вызван Object.defineProperties(obj, properties), где obj - объект,который должен быть возвращен из Object.create.
+
+Подсказки:
+
+Для доступа к внутреннему свойству объекта [[Prototype]] используйте методы Object.getPrototypeOf/Object.setPrototypeOf.
+В JavaScript все является объектом, кроме: null и undefined.
+NaN, Infinity, /regular expression literals/, function(){} - это всё тоже объекты.
+Пример:
+
+const A = {
+  objectName: 'Object A',
+  getObjectName: function() {
+    return `This is ${this.objectName}!`;
+  },
+};
+
+const B = Object.create(A, {
+  objectName: {
+    value: 'Object B',
+  },
+});
+
+A.getObjectName(); // This is Object A!
+B.getObjectName(); // This is Object B!
+
+A.hasOwnProperty('getObjectName'); // true
+A.hasOwnProperty('objectName'); // true
+
+B.hasOwnProperty('getObjectName'); // false
+B.hasOwnProperty('objectName'); // true
+*/
+
+//Решение
+/*
+Object.create = function (proto, propertiesObject={}) {
+  const newObj = {}
+  if (propertiesObject) {
+    const Obj = Object.defineProperties(newObj, { ...propertiesObject });
+    if (proto === undefined) {
+      throw TypeError('Object prototype may only be an Object or null');
+    
+  }
+  return (Object.setPrototypeOf(Obj,proto))
+  }
+  
+ 
+  
+}
+
+
+const A = {
+  objectName: 'Object A',
+  getObjectName: function() {
+    return `This is ${this.objectName}!`;
+  },
+};
+
+const B = Object.create(A, {
+  objectName: {
+    value: 'Object B',
+  },
+});
+
+console.log (B)
+*/
+
+/*
+//2.2.10
+
+Личный Счет
+Создайте 2 класса - Person для описания клиента и Account для работы с банковским счетом частного лица.
+Считаем, что отрицательный баланс счета - это нормально, обрабатывать как ошибку не надо.
+
+Person
+const person = new Person('Johannes', 'Helms', '1983-01-02');
+Методы
+getAge() - Возвращает возраст владельца счета
+Свойства
+firstName - Имя
+lastName - Фамилия
+fullName - Имя вместе с фамилией, вычислямое свойство (используем геттер)
+Account
+new Account(person, 1000);
+Методы
+addMoney(amount, description) - Положить деньги на аккаунт с комментарием к переводу
+withdrawMoney(amount, description) - Вывести деньги с аккаунта с комментарием к переводу
+getAmount() - Получить текущее состояние счета
+getAccountHistory() - Возвращает массив с объектами формата { timestamp: 1574434091131, target: 'in', amount: 10, description: 'ЗП' }. Поле target может иметь значения in или out.
+transfer(fromAccount, toAccount, amount) - статический метод, переводит деньги с одного счета на другой
+Свойства
+person - Владелец счета
+Пример
+const alex = new Person('Alexey', 'Petrov', '1994-05-22');
+const alexAccount = new Account(alex, 1000);
+const helen = new Person('Helen', 'Smith', '1990-06-06');
+const helenAccount = new Account(helen, 400);
+
+alexAccount.addMoney(1000, 'Зарплата');
+const amount = alexAccount.getAmount();
+alexAccount.withdrawMoney(amount * 0.1, 'Налоги');
+Account.transfer(alexAccount, helenAccount, 100);
+helenAccount.getAmount(); // 500
+alexAccount.getAmount(); // 1700
+Disclamer
+Конечно, математику с плавающей точкой для обработки балансов использовать не стоит - будут накапливаться ошибки вычисления. Но в данном упражнении этим можно пренебречь.
+
+*/
+
+class Person {
+  constructor(firstName, lastName) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.fullname = `${firstName} ${lastName}`
+   
+  }
+  getAge(date) {
+    console.log(date);
+    console.log(Date.parse('2019 - 05 - 23'));
+    // return(new Date('2019 - 05 - 23')-(new Date(date)));
+    
+     
+  }
+}
+
+class Account { }
+
+
+const alex = new Person('Alexey', 'Petrov', '1994-05-22');
+const alexAccount = new Account(alex, 1000);
+console.log(alex);
+console.log(alex.fullname);
+const helen = new Person('Helen', 'Smi th', '1990-06-06');
+const helenAccount = new Account(helen, 400);

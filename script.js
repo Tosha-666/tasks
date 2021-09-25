@@ -1803,6 +1803,7 @@ getAge() - Возвращает возраст владельца счета
 firstName - Имя
 lastName - Фамилия
 fullName - Имя вместе с фамилией, вычислямое свойство (используем геттер)
+
 Account
 new Account(person, 1000);
 Методы
@@ -1831,27 +1832,34 @@ Disclamer
 */
 
 class Person {
-  constructor(firstName, lastName) {
+  constructor(firstName, lastName, date) {
     this.firstName = firstName
     this.lastName = lastName
-    this.fullname = `${firstName} ${lastName}`
+    
+    this.date = date
    
   }
-  getAge(date) {
-    console.log(date);
-    console.log(Date.parse('2019 - 05 - 23'));
-    // return(new Date('2019 - 05 - 23')-(new Date(date)));
-    
-     
+  getAge() {
+    return (Math.floor((Date.parse('2019-05-23') - Date.parse(this.date))/31556908800));
+  }
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
   }
 }
 
-class Account { }
+class Account {
+  constructor(name, acc){
+    this.name = name
+    this.acc = acc
+  }
+
+}
 
 
 const alex = new Person('Alexey', 'Petrov', '1994-05-22');
 const alexAccount = new Account(alex, 1000);
 console.log(alex);
+console.log(alex.getAge());
 console.log(alex.fullname);
-const helen = new Person('Helen', 'Smi th', '1990-06-06');
+const helen = new Person('Helen', 'Smith', '1990-06-06');
 const helenAccount = new Account(helen, 400);

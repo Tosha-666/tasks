@@ -1830,27 +1830,76 @@ Disclamer
 Конечно, математику с плавающей точкой для обработки балансов использовать не стоит - будут накапливаться ошибки вычисления. Но в данном упражнении этим можно пренебречь.
 
 */
-
+/*
+//Решение
 class Person {
   constructor(firstName, lastName, date) {
-    this.firstName = firstName
-    this.lastName = lastName
-    
-    this.date = date
-   
+         this.firstName = firstName
+      this.lastName = lastName
+      
+      this.date = date
+     
+    }
+    getAge() {
+      return (Math.floor((Date.parse('2019-05-23') - Date.parse(this.date))/31556908800));
+    }
+    get fullName() {
+      return `${this.firstName} ${this.lastName}`;
+    }
   }
-  getAge() {
-    return (Math.floor((Date.parse('2019-05-23') - Date.parse(this.date))/31556908800));
-  }
-  get fullName() {
-    return `${this.firstName} ${this.lastName}`;
-  }
-}
 
 class Account {
   constructor(name, acc){
     this.name = name
     this.acc = acc
+    this.accountHistory = []
+  }
+  static transfer(fromAccount, toAccount, amount) {
+    fromAccount.acc -= amount
+    let removeObj = {
+      timestamp: Date.now(),
+      target: 'out',
+      amount: amount,
+      description: toAccount
+    }
+    fromAccount.accountHistory.push(removeObj)
+    toAccount.acc += amount
+    let addObj = {
+      timestamp: Date.now(),
+      target: 'in',
+      amount: amount,
+      description: fromAccount
+    }
+    toAccount.accountHistory.push(addObj)
+      }
+  addMoney(amount, description) {
+    
+    this.acc += amount
+    let addObj = {
+      timestamp: Date.now(),
+      target: 'in',
+      amount: amount,
+      description: description
+    }
+    this.accountHistory.push(addObj)
+    return(description)
+  }
+  withdrawMoney(amount, description) {
+    this.acc -= amount
+    let removeObj = {
+      timestamp: Date.now(),
+      target: 'out',
+      amount: amount,
+      description: description
+    }
+    this.accountHistory.push(removeObj)
+    return (description)
+  }
+  getAmount() {
+    return(this.acc)
+  }
+  getAccountHistory() {
+    return(this.accountHistory)
   }
 
 }
@@ -1863,3 +1912,136 @@ console.log(alex.getAge());
 console.log(alex.fullname);
 const helen = new Person('Helen', 'Smith', '1990-06-06');
 const helenAccount = new Account(helen, 400);
+
+console.log(alexAccount.addMoney(1000, 'Зарплата'));
+console.log(alexAccount);
+
+const amount = alexAccount.getAmount();
+console.log(amount);
+
+// console.log(alexAccount.withdrawMoney(amount * 0.1, 'Налоги'));
+// console.log(alexAccount);
+// Account.transfer(alexAccount, helenAccount, 100);
+// helenAccount.getAmount(); // 500
+// alexAccount.getAmount(); // 1700
+*/
+
+/*
+//2.2.11
+Calc
+Реализовать класс Calc с методами sub / add / result
+
+В конструкторе можем передать начальное иммутабельное значение (поумолчанию 0), потом методами add и sum прибавлять и вычитать из него.
+Вызов add/sub можно объединять в цепочку (fluent interface), методы возвращают новый объект класса.
+По вызову result() получаем результат вычислений.
+
+Пример использования:
+
+const calc = new Calc();
+calc.result(); // 0
+calc.add(5).result(); // 0 + 5 = 5
+calc.add(3).sub(10).result(); // 0 + 3 - 10 = -7
+
+const ten = calc.add(10);
+ten.sub(5).result(); // 10 - 5 = 5
+ten.result(); // 10
+*/
+/*
+//Решение
+class Calc {
+  constructor(a=0){
+    this.a = a
+    
+  }
+  add(variable) {
+    const b =(this.a + variable)
+    return new Calc(b);
+  }
+  sub(variable) {
+    const c = (this.a - variable)
+    return new Calc(c);
+  }
+  result() {
+    return(this.a)
+  }
+}
+
+const calc = new Calc();
+// console.log(calc.result()); // 0
+console.log(calc.add(5).result()); ; // 0 + 5 = 5
+console.log(calc.add(3).sub(10).result()); ; // 0 + 3 - 10 = -7
+*/
+
+
+
+/*
+//2.2.12
+Транслятор событий
+Cоздайте класс EventEmitter для управления событиями. У этого класса должны быть следующие методы:
+.on(event, callback) - добавить обработчик события
+
+.off(event, callback) - удалить обработчик события
+
+.once(event, callback) - добавить обработчик события, который сработает единожды
+
+.emit(event, [...arg]) - вызвать все обработчики события event, можно передать аргументы
+
+Расширьте EventEmitter классом BroadcastEventEmitter так, чтобы была возможность вызвать все обработчики всех событий:
+emit("*", [...arg]) - вызвать все обработчики событий, можно передать аргументы
+Event Emitter можно перевести как “транслятор” событий.
+
+Представьте себе такую ситуацию: происходит какое-то событие, например пользователь кликнул на кнопку, на которое должны отреагировать разные участки программы. 
+Чтобы проще организовать такую логику, используют шаблон Event Emitter, который можно реализовать разными способами. 
+Основная идея в том, чтобы грамотно создать основу для управления событиями и реализовать возможность любым элементам “подписаться” на него (и быть в курсе происходящего).
+
+Например:
+
+let input = document.querySelector('input');
+let button = document.querySelector('button');
+let h1 = document.querySelector('h1');
+
+let emitter = new EventEmitter();
+
+emitter.on('event:name-changed', data => {
+  h1.innerHTML = `New value is: ${data.name}`;
+});
+*/
+/*
+подписываемся на событие 'event:name-changed' и передаём обработчик вторым аргументом. Теперь при возникновении этого события, мы будем вызывать обработчик и обновим текст заголовка при возникновении этого события.
+*/
+/*
+button.addEventListener('click', () => {
+  emitter.emit('event:name-changed', {name: input.value});
+  
+});
+*/
+/*
+добавляем обработчик события 'клик' на кнопку. Этот обработчик производит событие 'event:name-changed' и вызывает все функции, подписанные на это события, передавая им строку из input.
+*/
+
+class EventEmitter {
+  constructor() {
+  }
+
+  on(eventName, callback) {
+      // code here
+  }
+
+  off(eventName, callback) {
+      // code here
+  }
+
+  once(eventName, callback) {
+      // code here
+  }
+
+  emit(eventName, args) {
+      // code here
+  }
+}
+
+class BroadcastEventEmitter extends EventEmitter {
+  emit(eventName, args) {
+      // code here
+  }
+}

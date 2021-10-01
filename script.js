@@ -2007,7 +2007,8 @@ emitter.on('event:name-changed', data => {
 });
 */
 /*
-подписываемся на событие 'event:name-changed' и передаём обработчик вторым аргументом. Теперь при возникновении этого события, мы будем вызывать обработчик и обновим текст заголовка при возникновении этого события.
+подписываемся на событие 'event:name-changed' и передаём обработчик вторым аргументом. 
+Теперь при возникновении этого события, мы будем вызывать обработчик и обновим текст заголовка при возникновении этого события.
 */
 /*
 button.addEventListener('click', () => {
@@ -2016,32 +2017,98 @@ button.addEventListener('click', () => {
 });
 */
 /*
-добавляем обработчик события 'клик' на кнопку. Этот обработчик производит событие 'event:name-changed' и вызывает все функции, подписанные на это события, передавая им строку из input.
+добавляем обработчик события 'клик' на кнопку. Этот обработчик производит событие 'event:name-changed' и вызывает все функции, подписанные на это события, 
+передавая им строку из input.
 */
 
 class EventEmitter {
   constructor() {
+    this.events = {}
   }
 
   on(eventName, callback) {
-      // code here
+    const event = this.events[eventName]
+    if (event) event.push(callback)
+    else this.events[eventName] = [callback]
   }
 
   off(eventName, callback) {
-      // code here
+    const event = this.events[eventName]
+    console.log(event);
+    if (!event) return
+    const i = event.indexOf(callback)
+    if(i !==-1)event.splice(i,1)
   }
 
   once(eventName, callback) {
-      // code here
+    const remove =  (...args) => {
+      this.off(eventName, remove);
+      callback.apply(this, args);
+    };
+    this.on(eventName, remove);
+
   }
 
   emit(eventName, args) {
-      // code here
+    const event = this.events[eventName]
+    if (event) event.forEach(element => element(args))
   }
 }
-
 class BroadcastEventEmitter extends EventEmitter {
   emit(eventName, args) {
       // code here
   }
 }
+
+let input = document.querySelector('input');
+let button = document.querySelector('button');
+let h1 = document.querySelector('h1');
+
+let emitter = new EventEmitter();
+
+emitter.on('event:name-changed', data => { console.log('сработало' + data) })
+emitter.on('event:name-changed', data => { console.log('сработало' + data) })
+emitter.on('event2:name-changed', data => { console.log('сработало2' + ' ' + data) })
+emitter.off('event:name-changed', data => { console.log('сработало' + data) })
+emitter.on('event3:name-changed3', data => { console.log('сработало' + data) })
+emitter.once('event:name-changed3', data => { console.log('сработало' + data) })
+emitter.emit('event:name-changed', 1)
+emitter.emit('event2:name-changed', 2)
+emitter.emit('event3:name-changed', 2)
+emitter.emit('event3:name-changed', 'не сработало')
+
+/*
+const anEventEmitter = {
+  events: {},
+  on(event, listener) {
+      if (typeof this.events[event] !== 'object') {
+          this.events[event] = [];
+      }
+      this.events[event].push(listener);
+      return () => this.removeListener(event, listener);
+  },
+  removeListener(event, listener) {
+    if (typeof this.events[event] === 'object') {
+        const idx = this.events[event].indexOf(listener);
+        if (idx > -1) {
+          this.events[event].splice(idx, 1);
+        }
+    }
+  },
+  emit(event, ...args) {
+    if (typeof this.events[event] === 'object') {
+      this.events[event].forEach(listener => listener.apply(this, args));
+    }
+  },
+  once(event, listener) {
+    const remove = this.on(event, (...args) => {
+        remove();
+        listener.apply(this, args);
+    });
+  }
+};
+
+const makeEventEmitter = () => ({
+   __proto__: anEventEmitter,
+   events: {}
+});*/

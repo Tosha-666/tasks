@@ -2034,7 +2034,6 @@ class EventEmitter {
 
   off(eventName, callback) {
     const event = this.events[eventName]
-    console.log(event);
     if (!event) return
     const i = event.indexOf(callback)
     if(i !==-1)event.splice(i,1)
@@ -2056,14 +2055,18 @@ class EventEmitter {
 }
 class BroadcastEventEmitter extends EventEmitter {
   emit(eventName, args) {
-      // code here
+    if (eventName == "*") {
+      const arrOfKeys = Object.keys(this.events)
+      console.log(arrOfKeys);
+      console.log(args);
+      }
   }
 }
 
 let input = document.querySelector('input');
 let button = document.querySelector('button');
 let h1 = document.querySelector('h1');
-
+let arg = [1,2,3]
 let emitter = new EventEmitter();
 
 emitter.on('event:name-changed', data => { console.log('сработало' + data) })
@@ -2076,6 +2079,8 @@ emitter.emit('event:name-changed', 1)
 emitter.emit('event2:name-changed', 2)
 emitter.emit('event3:name-changed', 2)
 emitter.emit('event3:name-changed', 'не сработало')
+
+emitter.emit("*", [...arg])
 
 /*
 const anEventEmitter = {
@@ -2112,3 +2117,39 @@ const makeEventEmitter = () => ({
    __proto__: anEventEmitter,
    events: {}
 });*/
+/*
+3.1.12
+csvGenerator
+Нужно написать функцию, которая переводит двумерный массив (массив массивов) в CSV формат и возвращать строку О формате: https://ru.wikipedia.org/wiki/CSV 
+(детали в разделе "Спецификация")
+
+Допустимые значения в качестве элементов массива - числа и строки Если встречается функция - выбрасывать ошибку с текстом "Unexpected value"
+
+Функция принимает: data - массив массивов, содержашие числа или строки
+
+Функция возвращает: Строку в формате CSV
+
+Пример:
+
+
+
+
+*/
+
+//Решение
+
+function arraysToCsv(data) {
+  return data.map(array => array.map(e => {
+            let type = typeof e;
+            if (type !== "number" && type !== "string")
+                throw new Error("Unexpected value");
+            return (type === "string" && e.includes(",")) ? JSON.stringify(e) : e;
+        }).join(","))
+        .join("\n");
+}
+ 
+
+const data1 = [['"text"', 'other "long" text']]
+console.log(arraysToCsv(data1));
+console.log (arraysToCsv([[1, 2], ['a', 'b']])); // '1,2\na,b'
+console.log(arraysToCsv([[1, 2], ['a,b', 'c,d']]));  // '1,2\n"a,b","c,d"'

@@ -2137,19 +2137,80 @@ csvGenerator
 */
 
 //Решение
-
+/*
 function arraysToCsv(data) {
-  return data.map(array => array.map(e => {
-            let type = typeof e;
-            if (type !== "number" && type !== "string")
-                throw new Error("Unexpected value");
-            return (type === "string" && e.includes(",")) ? JSON.stringify(e) : e;
-        }).join(","))
-        .join("\n");
+  return data.map((item) => {
+    return item.map(m = function (val) {
+      if (typeof val !== "number" && typeof val !== "string")
+      throw new Error("Unexpected value"); 
+        if (typeof val === 'string') {
+    if (val.match(/(,|"|\n)/)) {
+      val = val.replace(/"/g, '""');
+      val = `"${val}"`;
+    }
+    return val;
+  } else {
+    return val;
+  }
+    }).join(",");
+  }).join('\n');
 }
- 
+
+ const array = [
+  [1, 2],
+  [',,,"'],
+  [',"",'],
+  ['"""'],
+  ['"'],
+  ['a\nb'],
+  ['ac']
+];
+
+
 
 const data1 = [['"text"', 'other "long" text']]
 console.log(arraysToCsv(data1));
 console.log (arraysToCsv([[1, 2], ['a', 'b']])); // '1,2\na,b'
 console.log(arraysToCsv([[1, 2], ['a,b', 'c,d']]));  // '1,2\n"a,b","c,d"'
+console.log(arraysToCsv(array));
+
+
+*/
+
+/*
+//3.1.3
+Урок с кодом
+В localStorage по ключу "counters" находится JSON c объектом, полями которого являются имена счётчиков, а значениями - числовое значение счётчика. 
+Напишите функцию incrementCounter, которой на вход первым параметром передаётся counterName - имя счётчика.
+
+Задача функцции увеличить значение счётчика counterName на 1 и обновить данные в localStorage. 
+В localStorage может находится невалидный JSON, чтение которого может првести к ошибке, в этом случае функция должна записывать новые данные, 
+где у указанного счетчика будет значение 1. В конце функция должна возвращать значение счетчика после инкремента.
+
+Пример использования:
+
+// в localStorage 1 счетчик: bannerClick = 5
+incrementCounter('bannerClick'); // 6
+incrementCounter('bannerClose'); // 1
+// в localStorage 2 счетчика: bannerClick = 6, bannerClose = 1
+Про работу с localStorage читаем тут: https://learn.javascript.ru/localstorage
+*/
+
+
+
+function incrementCounter(counterName){
+  for (let key in localStorage) {
+    if (key === counterName) {
+      val = Number(localStorage.getItem(counterName))
+      console.log(val);
+      console.log(typeof val);
+      localStorage.setItem(counterName, String(val + 1))
+      console.log(val);
+  }
+}
+}
+localStorage.setItem('bannerClick', '5')
+localStorage.setItem('bannerClose', '3')
+
+incrementCounter('bannerClick'); // 6
+incrementCounter('bannerClose'); // 1

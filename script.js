@@ -2020,7 +2020,7 @@ button.addEventListener('click', () => {
 добавляем обработчик события 'клик' на кнопку. Этот обработчик производит событие 'event:name-changed' и вызывает все функции, подписанные на это события, 
 передавая им строку из input.
 */
-
+/*===================================================================================
 class EventEmitter {
   constructor() {
     this.events = {}
@@ -2081,7 +2081,7 @@ emitter.emit('event3:name-changed', 2)
 emitter.emit('event3:name-changed', 'не сработало')
 
 emitter.emit("*", [...arg])
-
+===================================================================================================*/
 /*
 const anEventEmitter = {
   events: {},
@@ -2196,21 +2196,117 @@ incrementCounter('bannerClose'); // 1
 Про работу с localStorage читаем тут: https://learn.javascript.ru/localstorage
 */
 
+/*
+Решение
+function incrementCounter(counterName) {
+  let counters;
+  try {
+    counters = JSON.parse(localStorage.getItem("counters"));
+} catch (er) {
+    counters = {};
+}
+if(typeof counters[counterName] !== 'number'){
+    counters[counterName] = 0;
+}
+  counters[counterName]++;
+  console.log(counters);
+localStorage.setItem("counters", JSON.stringify(counters));
+
+return counters[counterName];
+}
 
 
-function incrementCounter(counterName){
-  for (let key in localStorage) {
-    if (key === counterName) {
-      val = Number(localStorage.getItem(counterName))
-      console.log(val);
-      console.log(typeof val);
-      localStorage.setItem(counterName, String(val + 1))
-      console.log(val);
+let count = {
+  bannerClick: 5,
+  bannerClose:2
+}
+let counter = JSON.stringify(count)
+localStorage.setItem('counters', counter)
+// localStorage.setItem('bannerClose', '3')
+
+console.log(incrementCounter('bannerClick')); ; // 6
+console.log( incrementCounter('bannerClose'));; // 1
+console.log(incrementCounter('banner1')); ; // 1
+
+*/
+/*
+3.1.4
+getRepeatableData
+Написать функцию getRepeatableData, котрая принимает на вход три параметра:
+
+getData- функция, возвращающая данные со стороннего источника. Может генерировать ошибки (см ниже)
+key - аргумент, с которым нужно вызвать getData
+maxRequestsNumber- максимальное количество вызовов getData функции. Если этот параметр отсутствует - повторяем бесконечное количество раз.
+getRepeatableData(getData, key, maxRequestNumber);
+
+Функция getRepeatableData должна вызывать getData и обрабатывать ошибки по условию:
+
+Если вызов getData возвращает ошибку NotFoundError, то мы пробрасываем исключение.
+Если вызов getData возвращает ошибку TemporaryError, то мы должны делать повторный вызов getData функции. Кол-во таких вызовов не должно превышать значение maxRequestsNumber. 
+Если кол-во повторого вызыва превышает maxRequestsNumber, то функция getRepeatableData должна пробрасывать ошибку AttemtsLimitExceeded.
+Если getData выполняется без ошибок - функция должна вернуть то, что вернула getData. Пример:
+const getData = (key) => 'hello' + key;
+const res = getRepeatableData(getData, '1', 3); // 'hello1'
+*/
+
+//Решение
+
+
+class AttemptsLimitExceeded extends Error {
+  constructor(){
+    super('Max attempts limit exceed');
+    this.name = 'AttemptsLimitExceeded';
   }
 }
-}
-localStorage.setItem('bannerClick', '5')
-localStorage.setItem('bannerClose', '3')
 
-incrementCounter('bannerClick'); // 6
-incrementCounter('bannerClose'); // 1
+class NotFoundError extends Error {
+  constructor(){
+    super('Not found');
+    this.name = 'NotFoundError';
+  }
+}
+
+class TemporaryError extends Error {
+  constructor(){
+    super('TemporaryError');
+    this.name = 'TemporaryError';
+  }
+}
+
+function getRepeatableData(getData, key, maxRequestsNumber = Infinity) {
+  try {
+    let i=0
+       const newGetData = getData(key)
+  }
+  catch (err) {
+    if (err == NotFoundError) {
+      throw err
+    } else if (err == TemporaryError) {
+      i++
+      if (i<maxRequestsNumber)
+      newGetData()
+    }
+  }
+}
+
+
+
+const getData = (key) => 'hello' + key;
+const res = getRepeatableData(getData, '1', 3); // 'hello1'
+/*
+function getRepeatableData(getData, key, maxRequestsNumber) {
+  let output;
+  if (!maxRequestsNumber)
+    throw AttemptsLimitExceeded;
+  try{
+    output = getData();
+  }
+  catch(e){
+    if(e instanceof NotFoundError)
+      throw e;
+    else if(e instanceof TemporaryError)
+      getRepeatableData(getData, key, maxRequestsNumber--)
+  }
+  return output
+}
+*/

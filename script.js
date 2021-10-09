@@ -2020,7 +2020,7 @@ button.addEventListener('click', () => {
 добавляем обработчик события 'клик' на кнопку. Этот обработчик производит событие 'event:name-changed' и вызывает все функции, подписанные на это события, 
 передавая им строку из input.
 */
-/*===================================================================================
+/*Решение
 class EventEmitter {
   constructor() {
     this.events = {}
@@ -2050,38 +2050,38 @@ class EventEmitter {
 
   emit(eventName, args) {
     const event = this.events[eventName]
-    if (event) event.forEach(element => element(args))
+    if (event) event.forEach(element => element(...args))
   }
 }
 class BroadcastEventEmitter extends EventEmitter {
-  emit(eventName, args) {
-    if (eventName == "*") {
-      const arrOfKeys = Object.keys(this.events)
-      console.log(arrOfKeys);
-      console.log(args);
-      }
-  }
+  emit(eventName, ...args) {
+    if (eventName === '*') {
+        Object.keys(this.events).forEach((e) => super.emit(e, ...args));
+    } else {
+        super.emit(eventName, ...args);
+    }
 }
-
+}
 let input = document.querySelector('input');
 let button = document.querySelector('button');
 let h1 = document.querySelector('h1');
 let arg = [1,2,3]
-let emitter = new EventEmitter();
+let emitter = new BroadcastEventEmitter();
 
 emitter.on('event:name-changed', data => { console.log('сработало' + data) })
 emitter.on('event:name-changed', data => { console.log('сработало' + data) })
 emitter.on('event2:name-changed', data => { console.log('сработало2' + ' ' + data) })
 emitter.off('event:name-changed', data => { console.log('сработало' + data) })
 emitter.on('event3:name-changed3', data => { console.log('сработало' + data) })
-emitter.once('event:name-changed3', data => { console.log('сработало' + data) })
-emitter.emit('event:name-changed', 1)
-emitter.emit('event2:name-changed', 2)
-emitter.emit('event3:name-changed', 2)
-emitter.emit('event3:name-changed', 'не сработало')
+// emitter.once('event:name-changed3', data => { console.log('сработало' + data) })
+// emitter.emit('event:name-changed', 1)
+// emitter.emit('event2:name-changed', 2)
+// emitter.emit('event3:name-changed', 2)
+// emitter.emit('event3:name-changed', 'не сработало')
+console.log(emitter);
+emitter.emit('*', 1,2,3,4)
+*/
 
-emitter.emit("*", [...arg])
-===================================================================================================*/
 /*
 const anEventEmitter = {
   events: {},
@@ -2251,7 +2251,7 @@ const res = getRepeatableData(getData, '1', 3); // 'hello1'
 
 //Решение
 
-
+/*
 class AttemptsLimitExceeded extends Error {
   constructor(){
     super('Max attempts limit exceed');
@@ -2274,25 +2274,33 @@ class TemporaryError extends Error {
 }
 
 function getRepeatableData(getData, key, maxRequestsNumber = Infinity) {
-  try {
-    let i=0
-       const newGetData = getData(key)
-  }
-  catch (err) {
-    if (err == NotFoundError) {
-      throw err
-    } else if (err == TemporaryError) {
-      i++
-      if (i<maxRequestsNumber)
-      newGetData()
-    }
-  }
+  let count = 0; 
+  let call = () => { 
+      try { 
+          if (count >= maxRequestsNumber) { 
+              throw new AttemptsLimitExceeded(); 
+          } 
+          return getData(key); 
+      } catch(err) { 
+          if (err.name === 'NotFoundError') { 
+              throw err; 
+          } 
+          if (err.name === 'AttemptsLimitExceeded') { 
+              throw err; 
+          } 
+          if (err.name === 'TemporaryError') { 
+              count += 1; 
+              return call(); 
+          } 
+      } 
+      return call(); 
+  } 
+  return call(); 
 }
-
-
 
 const getData = (key) => 'hello' + key;
 const res = getRepeatableData(getData, '1', 3); // 'hello1'
+*/
 /*
 function getRepeatableData(getData, key, maxRequestsNumber) {
   let output;
@@ -2310,3 +2318,69 @@ function getRepeatableData(getData, key, maxRequestsNumber) {
   return output
 }
 */
+
+/*
+//3.1.5
+Apply Functions
+Написать функцию applyFn, которая принимает на вход 2 параметра:
+
+Массив с входными данными
+Функцию, которую нужно применить к каждому элементу массива входных данных applyFn(dataArr, callback);
+Функция должна возвращать объект в котором 2 массива массив результатов succeeded и массив ошибок errors с правильными call stacks
+
+{
+  succeeded: [...], // Массив данных после функции обработчика, как при вызове .map
+  errors: [...],    // Массив инстансов ExecutionError
+}
+Создать класс ошибки ExecutionError с методом .getArgData(), по которому можно получить входные данные, на которых упала функция-коллбэк, 
+то есть возвращать element входного массива dataArr, если вызов callback(element) сгенерирует ошибку
+
+Стек трейс должен указывать на корректную позицию в функции-коллбэке Примечание: класс ExecutionError нужно сделать наследником другого класса
+
+Пример:
+
+const { succeeded, errors } = applyFn([1, 2, 3], (arg) => arg + 1);
+//   succeeded: [2, 3, 4],
+//   errors: [],
+
+const dataArr = ['{"login":"login","password":"password"}', '{}'];
+const callback = JSON.parse;
+const { succeeded, errors } = applyFn(dataArr, callback);
+//   succeeded: [{ login: 'login', password: "password" }],
+//   errors: [ExecutionError],
+errors[0].getArgData(); // '{}'
+*/
+//Решение
+
+
+class ExecutionError {
+
+  getArgData() {
+    
+  }
+      
+}
+
+function applyFn(dataArr, callback) {
+
+  const errors = []
+  try {
+    var succeeded = dataArr.map(currentValue => callback(currentValue) )
+      // (el => {
+      // succeeded.push(callback(el));
+      // });
+
+  }
+  
+  catch(err) {
+  console.log(err);
+  }
+  // console.log(errors);
+  console.log (succeeded)
+
+}
+
+// applyFn([1, 2, 3], (arg) => arg + 1);
+const dataArr = ['{"login":"login","password":"password"}', '{}'];
+const callback = JSON.parse;
+const { succeeded, errors } = applyFn(dataArr, callback);

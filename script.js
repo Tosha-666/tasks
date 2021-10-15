@@ -2335,7 +2335,8 @@ Apply Functions
 Создать класс ошибки ExecutionError с методом .getArgData(), по которому можно получить входные данные, на которых упала функция-коллбэк, 
 то есть возвращать element входного массива dataArr, если вызов callback(element) сгенерирует ошибку
 
-Стек трейс должен указывать на корректную позицию в функции-коллбэке Примечание: класс ExecutionError нужно сделать наследником другого класса
+Стек трейс должен указывать на корректную позицию в функции-коллбэке 
+Примечание: класс ExecutionError нужно сделать наследником другого класса
 
 Пример:
 
@@ -2352,35 +2353,286 @@ errors[0].getArgData(); // '{}'
 */
 //Решение
 
+/*
+class ExecutionError extends Error {
+  constructor(element, name, stack ){
 
-class ExecutionError {
-
-  getArgData() {
-    
-  }
-      
+    this.element = element
+    this.name = name;
+    this.stack = stack
+}
+getArgData() {
+  return this.element
+}
 }
 
 function applyFn(dataArr, callback) {
-
-  const errors = []
-  try {
-    var succeeded = dataArr.map(currentValue => callback(currentValue) )
-      // (el => {
-      // succeeded.push(callback(el));
-      // });
-
-  }
-  
-  catch(err) {
-  console.log(err);
-  }
-  // console.log(errors);
-  console.log (succeeded)
-
+  return dataArr.reduce(function(acc, currentElement, i) {
+    const {succeeded, errors} = acc;
+    try {
+      succeeded.push(callback(currentElement))
+    } catch(e) {
+      errors.push(new ExecutionError(dataArr[i], e.name, e.stack));
+    }
+    return acc
+  }, {
+    succeeded: [],
+    errors: [],
+  })
 }
 
 // applyFn([1, 2, 3], (arg) => arg + 1);
 const dataArr = ['{"login":"login","password":"password"}', '{}'];
 const callback = JSON.parse;
 const { succeeded, errors } = applyFn(dataArr, callback);
+console.log(errors[0].getArgData()); 
+ console.log({ succeeded, errors })
+ */
+
+//  https://learn.javascript.ru/event-loop
+
+/*
+//3.2.3
+ Урок с кодом
+SumFileSizes
+Напишите функцию, которая принимает имена двух файлов и вызывает функцию, 
+переданную третьим параметром и передает ей первым агрументом сумму их размеров.
+
+Для получения рамзера файла необходимо использовать функцию getFileSize(filename, cb).
+*/
+//Решение
+/*
+let fileSizes = {
+  testFile1: 65,
+  testFile2: 48,
+}
+
+function getFileSize(filename, cb) {
+  setTimeout(() => cb(fileSizes[filename]), Math.random() * 500);
+}
+const callBack = (a) => { console.log(a)  }
+function sumFileSizes(filename1, filename2, cb) {
+  let s = 0
+  const ss = (sss) => s += sss
+  getFileSize(filename1, ss)
+   
+  getFileSize(filename2, ss)
+  
+  setTimeout(() => cb(s), 505)
+}
+
+sumFileSizes('testFile1', 'testFile2', callBack); 
+*/
+/*
+//3.2.4
+getUsersInfo
+Вам нужно написать функцию, которая получает массив всех пользователей и передает его в функцию коллбэк.
+
+Пример использования
+
+getUsersInfo((users) => {
+  console.log(users); // [ { name: 'Alex', age: 70 }, { name: 'Elon' } ]
+});
+Для получения данных вам предоставлены 2 асинхронные функции
+
+getUsersIds - Возвращает массив с идентификаторами пользователей
+getUserInfo - Возвращает данные пользователя по заданному идентификатору
+getUsersIds((ids) => {
+  console.log(ids); // ['id2', 'id6']
+});
+
+getUserInfo('someUserId', (userInfo) => {
+  console.log(userInfo); // { name: 'Alex', age: 70 }
+});
+Функция должна вызвать callback, переданный первым агрументом и передать туда массив данных о пользователях.
+
+Порядок пользователей в результирующем массиве должен соответствовать порядку идентификаторов в массиве из getUsersIds
+
+Hint: Вне платформы вы можете создать эти функции с помощью setTimeout и какого-то общего хранилица данных.
+*/
+//Решение
+/*
+const { getUserInfo, getUsersIds } = db;
+
+function getUsersInfo(onLoad) {
+  let result = [];
+
+  let podarochekMentoru = (ids = []) => {
+      if(ids.length !== 0){
+          getUserInfo(ids.shift(), (userInfo) => {
+              result.push(userInfo);
+              podarochekMentoru(ids);
+          });
+
+      }else{
+          onLoad(result);
+      }
+  }
+
+  getUsersIds((ids) => {
+      podarochekMentoru(ids);
+  });
+}
+*/
+// Вариант решения===========================================================
+// const { getUserInfo, getUsersIds } = db;
+// Демо функции, чтобы работало
+/*
+const data = {
+  id1: {name: 'Alice',   age: 62},
+  id2: {name: 'Bob',     age: 28},
+  id3: {name: 'Charlie', age: 10},
+};
+function getUsersIds(cb) {
+  setTimeout(() => cb(Object.keys(data)), 100);
+};
+function getUserInfo(id, cb) {
+  setTimeout(() => cb(data[id]), 10*data[id].age);
+}
+
+
+function getUsersInfo(onLoad) {
+  // Начнём с получения идентификаторов
+  getUsersIds(ids => {
+    // Пустой массив, если пользователей нет
+    if (ids.length === 0) return onLoad([]);
+    
+    // Подготовим массив необходимой длины
+    const users = [];
+    users.length = ids.length;
+    // Счётчик коллбеков, нужен чтобы среагировать на последний
+    let c = ids.length;
+
+    // Перебираем идентификаторы, запускаем «асинхронные» функции
+    // for (const [i, id] of Object.entries(ids)) {
+    for(let i = 0; i < ids.length; ++i) {
+      const id = ids[i];
+      
+      getUserInfo(id, user => {
+        // Кладём полученного пользователя в нужное место в массиве
+        users[i] = user;
+        // Когда счётчик дошёл до нуля, вызываем onLoad
+        if (!--c) onLoad(users);
+      });
+    }
+  });
+}
+
+getUsersInfo(users => console.log(JSON.stringify(users)));
+*/
+/*
+//3.2.6
+increaseSalary
+Давайте напишем функцию, которая будет увеличивать зарплату сотруднику с наименьшей зарплатой.
+
+Вам нужно
+
+Получает данные по всем работникам
+Находит работника с наименьшей зарплатой
+Отправляет запрос на повышение зарплаты этому сотруднику на 20%
+Если запрос прошел успешно - отправить сотруднику уведомление об увеличении ЗП тектом: 
+Hello, <имя>! Congratulations, your new salary is <новая ЗП>!
+Если запрос завершился неудачей - отправить данные об ошибке администратору
+Должна всегда возвращать resolved промис с boolean значением:
+
+true если увеличение прошло успешно
+false если нет
+Все функции для получения/изменения данных асинхронны и возвращают промисы.
+Вам предоставлены функции:
+
+api.getEmployees(); // Возвращает массив с объектами {id: 343, name: 'Alex', salary: 20000}
+api.setEmployeeSalary(employeeId, newSalary); // Принимает id сотрудника и новую зарплату. Возвращает новые данные по сотруднику.
+api.notifyEmployee(employeeId, text); // Принимает id сотрудника и текст уведомления
+api.notifyAdmin(error); // Принимает ошибку
+*/
+// const employeeId = currentEmployee.id
+      // const newSalary = currentEmployee.salary * 1.2
+
+function increaseSalary() {
+  return api.getEmployees()
+    .then(employeeData => {
+      const [minSalaryEmployee] = employeeData.reduce(([minEmployee, minSalary], employee) => {
+        const { salary } = employee;
+        return (salary < minSalary
+          ? [employee, salary]
+          : [minEmployee, minSalary]
+        );
+      }, [null, Infinity]);
+      const { id, salary: oldSalary } = minSalaryEmployee;
+      const newSalary = oldSalary * 1.2;
+      return { id, salary: newSalary };
+    })
+    .then(({ id, salary }) => api.setEmployeeSalary(id, salary))
+    .then((data)=>console.log(data))
+    // .then((changedSalary) => {
+    //   const changedArr = api._employees
+    //   changedArr.forEach((el, i) => {
+    //     if (el.id === changedSalary.id)
+    //     {
+    //       api._employees[i] = changedSalary
+    //     }
+    //   })
+    //   api.setEmployees(changedArr)
+    //   return(changedSalary)
+    // })
+    .catch(e => api.notifyAdmin(e))
+    .then(({ name, id, salary }) => api.notifyEmployee(id, `Hello, ${name}! Congratulations, your new salary is ${salary}!`))
+    
+
+}
+
+
+const api = {
+  _employees: [
+    { id: 1, name: 'Alex', salary: 120000 },
+    { id: 2, name: 'Fred', salary: 110000 },
+    { id: 3, name: 'Bob', salary: 80000 },
+  ],
+
+  getEmployees() {
+    return new Promise((resolve) => {
+      resolve(this._employees.slice());
+    });
+  },
+
+  setEmployeeSalary(employeeId, newSalary) {
+    return new Promise((resolve) => {
+      this._employees = this._employees.map((employee) =>
+        employee.id !== employeeId
+          ? employee
+          : {
+            ...employee,
+            salary: newSalary,
+          }
+      );
+      resolve(this._employees.find(({ id }) => id === employeeId));
+    });
+  },
+
+  notifyEmployee(employeeId, text) {
+    return new Promise((resolve) => {
+      resolve(true);
+    });
+  },
+
+  notifyAdmin(error) {
+    return new Promise((resolve) => {
+      if (error)
+      resolve(false);
+    });
+  },
+
+  setEmployees(newEmployees) {
+    return new Promise((resolve) => {
+      this._employees = newEmployees;
+      resolve();
+    });
+  },
+};
+
+// console.log(api.getEmployees());
+console.log(api._employees);
+increaseSalary().then(isOk => {
+    console.log(isOk);
+    console.log(api._employees);
+})

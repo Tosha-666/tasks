@@ -71,8 +71,6 @@ if ((a>=b-c && a<=b+c)){
 
 }	*/
 
-
-
 /*
 1.1.18
 Урок с кодом
@@ -121,7 +119,8 @@ const reverseLongWords = (str) => {
  
 
 Wrap Paragraph
-Реализуйте функцию wrapInParagraph, которая принимает на вход текст, разделененный переносами строк и возвращает новый текст, в котором каждая строка обернута в тег
+Реализуйте функцию wrapInParagraph, которая принимает на вход текст, разделененный переносами строк и возвращает новый текст, 
+в котором каждая строка обернута в тег
 
 .
 
@@ -185,14 +184,14 @@ return(letter)
 
   */
 
-
-
 /*1.2.5
-  Реализуйте функцию finalGrade, которая вычисляет итоговую оценку студента на основе двух параметров: оценки за экзамен и количества законченных проектов.
+  Реализуйте функцию finalGrade, которая вычисляет итоговую оценку студента на основе двух параметров: оценки за экзамен и 
+  количества законченных проектов.
 
 Функция принимает два аргумента:
 
-exam — оценка за экзамен, число от 0 до 100; projects — количество проектов, число от 0 и выше. Функция возвращает: число (итоговую оценку).
+exam — оценка за экзамен, число от 0 до 100; projects — количество проектов, число от 0 и выше. 
+Функция возвращает: число (итоговую оценку).
 
 Есть четыре возможных итоговых оценки:
 
@@ -251,7 +250,8 @@ function fizzbuzz(number) {
 fizzbuzz(1)*/
 
 /*1.2.7
-Реализуйте функцию, которая принимает на вход два числа и арифметический оператор (имя которого в виде строки) и возвращает результат соответстующей операции.
+Реализуйте функцию, которая принимает на вход два числа и арифметический оператор (имя которого в виде строки) и 
+cвозвращает результат соответстующей операции.
 
 Первые 2 аргумента это положительные целые числа
 
@@ -295,7 +295,6 @@ Are brackets balanced
 Скобки — это парные структуры. У каждой открывающей скобки должна быть соответствующая ей закрывающая скобка.
 Закрывающая скобка не должна идти впереди открывающей.*/
 
-
 /*Решение
 const areBracketsBalanced = (str) => {
   let prev = '';
@@ -330,7 +329,8 @@ findAllIdx([5, null, undefined], undefined)*/
 replaceItems
 Напишите две функции replaceItemsClear(arr, item, replaceItem) и replaceItemsMutate(arr, item, replaceItem).
 
-Функция replaceItemsClear находит все элементы массива arr, равные item, и возвращает новый массив, в котором на месте найденных значений стоит replaceItem.
+Функция replaceItemsClear находит все элементы массива arr, равные item, и возвращает новый массив, 
+в котором на месте найденных значений стоит replaceItem.
 
 Функция replaceItemsMutate реализует тот же функционал, только мутирует входящий массив и возвращает его же.
 
@@ -430,7 +430,6 @@ const data = [1, 2, 3, 4, 5, 6];
 
 console.log(getNumbersByParity(data, 'even')); // [2, 4, 6];
 console.log(getNumbersByParity(data, 'odd')); // [1, 3, 5];*/
-
 
 /* Решение
 const getNumbersByParity = (data, parity) => {
@@ -563,9 +562,6 @@ const obj = {
 console.log(optionalChaining(obj, ["a", "b", "c", "d"])) // Привет
 */
 
-
-
-
 /*1.3.7
 Задача реализовать функцию partition которая принимает на вход массив и коллбэк функцию, а возвращает массив в котором два массива.
 
@@ -694,7 +690,7 @@ const once = fn => {
   console.log(onceF())
   */
 
-  /*
+/*
   1.3.11
   Array Filters
   Для этой задачи вам нужно будет ознакомиться с методом массива filter, который принимает функцию-коллбэк для фильтрации массива.
@@ -723,7 +719,7 @@ const once = fn => {
   console.log(arr.filter(inArray([1, 2, 10, undefined]))); // [1, 2, undefined]
   console.log(arr.filter(notInArray([1, 2, 3, 4, 5, 6, 7, true]))); // [undefined, NaN]
   */
- /*Решение
+/*Решение
   const inRange = (a, b) => {
     return function (x) {
             return x >= a && x <= b;
@@ -749,8 +745,7 @@ const once = fn => {
     console.log(arr.filter(inArray([1, 2, 10, undefined]))); // [1, 2, undefined]
     console.log(arr.filter(notInArray([1, NaN, true, '8', 212]))); // [undefined, NaN]*/
 
-
-    /*1.3.13
+/*1.3.13
     createObjectCalculator
 Реализуйте функцию createObjectCalculator, которая принимает в качестве аргументов два числа, а возвращает следующий объект:
 
@@ -805,7 +800,6 @@ console.log(calculator.read(12, 34))
 console.log(calculator.sum())
 console.log(calculator);
 */
-
 
 /*1.4.3
 Урок с кодом
@@ -914,7 +908,7 @@ const createUsernames = users => {
     //  username: 'nore2000' }
     // ];
     */
-   /*1.4.5
+/*1.4.5
     Урок с кодом
     Реализуйте функцию calculatePrice, которая принимает массив заказов, а возвращает сумму их стоимостей. 
     Каждый объект заказа содержит поле price, в котором хранится стоимость товара в числовом формате.
@@ -1172,7 +1166,6 @@ const sum = (...args) => {
 
 console.log(sum(1, 'fqwfqwf', {}, [], 3, 4, 2, true, false))*/
 
-
 /*// 2.1.6
 Merge
 Реализуйте функцию merge, которая будет принимать неограниченное количество объектов в качестве аргументов и возвращать новый объект, который должен содержать все поля со всех объектов. 
@@ -1290,8 +1283,8 @@ const getLanguagesStatistic = (feedbacks) => {
 console.log(result)
 */
 
-  //2.1.11
-  /*getArraysCounts
+//2.1.11
+/*getArraysCounts
 Реализуйте функцию getArraysCounts, которая принимает массив в качестве аргумента. 
 Функция должна вернуть Map, в котором ключи - все уникальные элементы в массиве, а значения - количество этих элементов в массиве.
 
@@ -1345,9 +1338,7 @@ const counts = getArraysCounts(data); // экземпляр Map
 // console.log(counts.get(obj)); // 2
 */
 
-
-
- /* //2.1.12
+/* //2.1.12
 
  Unique
 Реализуйте функцию unique, которая принимает массив в качестве аргумента и возвращает новый массив, в котором содержатся только уникальные значения из исходного массива. 
@@ -1381,7 +1372,6 @@ const unique = (arr) => {
   console.log(unique(data1)); // [1, 2, 3, 4]
   */
 
-  
 /*//2.1.14
 getDaysBetweenDates
 Реализуйте функцию getDaysBetweenDates которая принимает на вход две даты и возвращает количество полных дней между ними.
@@ -1478,9 +1468,7 @@ isEmptyWithProtos(obj); // -> true
 isEmptyWithProtos({}); // -> false
 */
 
-
 //Решение
-
 
 /*function isEmpty(obj) {
   if (Object.keys(obj).length == 0) {
@@ -1658,7 +1646,6 @@ Book.prototype.returnBook = function () {
 
 console.log(Book.prototype)
 */
-
 
 /*2.2.6
 Урок с кодом
@@ -1973,8 +1960,6 @@ const calc = new Calc();
 console.log(calc.add(5).result()); ; // 0 + 5 = 5
 console.log(calc.add(3).sub(10).result()); ; // 0 + 3 - 10 = -7
 */
-
-
 
 /*
 //2.2.12
@@ -2681,8 +2666,8 @@ promiseAll([firstPromise, secondPromise, thirdPromise])
     .then(console.log); // [300, 200, 100]
 
     */
- //Решение
- /*
+//Решение
+/*
  function promiseAll(promises) {
   if (promises.length === 0) return Promise.resolve([]);
   const copy = [...promises]; 
@@ -3007,7 +2992,7 @@ let timeout
 */
 
 // let example = document.querySelector('div')
-// console.log(example.getAttribute('class')); 
+// console.log(example.getAttribute('class'));
 // console.dir(example.style);
 /*
 const get = function () {
@@ -3024,8 +3009,426 @@ xhr.send()
 const buttonSend = document.querySelector('.send-btn')
 buttonSend.addEventListener('click', get)
 */
+/*
 fetch("https://jsonplaceholder.typicode.com/posts")
   .then(response => {
     return(response.json())
   })
   .then(posts=>console.log(posts))
+  */
+/*
+4.2.5
+Практическая задача
+Испробуем на практике взаимодействие с DOM и применим fetch для получения настоящих данных о репозиториях GitHub.
+
+Описание функционала
+Ссылка на эскизный макет приложения
+
+Реализуйте приложение на чистом JavaScript без использования сторонних библиотек, которое будет работать с общедоступным API GitHub и представлять собой список репозиториев.
+Итоговое решение должно состоять из двух элементов, 
+расположенных на странице - поля ввода с автодополнением (автокомплита) 
+и списка репозиториев:
+
+Автокомплит должен запрашивать данные о репозиториях через API GitHub, 
+каждый раз, когда пользователь обновляет значение поля ввода и выводить 
+их в выпадающем меню прямо под собой. 
+В выпадающем меню должно быть перечислено 5 названий первых репозиториев, 
+полученных с помощью запроса поиска репозиториев по 
+ключевым словам API GitHub с введенным пользователем в
+поле ввода поисковым запросом.
+При клике на любой из репозиториев соответствующий репозиторий должен 
+быть представлен в списке добавленных репозиториев, расположенном ниже.
+
+Список репозиториев отображает добавленные с помощью автокомплита репозитории. 
+Для каждого добавленного в список репозитория должно быть отображено его название, 
+его владелец и количество звезд на этом репозитории. 
+Кроме того, возле каждого пункта списка добавленных репозиториев должна быть
+ кнопка удаления, которая, соответственно, 
+ удаляет репозиторий из списка.
+
+Чтобы обеспечить хороший опыт работы с приложением для пользователей, необходимо сделать следующие улучшения для автокомплита:
+
+Если поля ввода пустое, то список автодополнений не отображается
+При вводе символов в поле ввода запросы не должны отправляться сразу в целях избежания лишних запросов на сервер. Используйте знания, полученные при решении задачи debounce, для решения этой проблемы
+Когда пользователь добавляет репозиторий путем клика на его название в списке автокомплита, поле ввода должно очищаться.
+ 
+
+Результат должен быть представлен в виде ссылки на git репозиторий.
+
+
+ 4.3.1
+https://youtu.be/vobsAhMBPVw
+https://ru.hexlet.io/courses/intro_to_web_development/lessons/hosting/theory_unit
+https://habr.com/ru/company/htmlacademy/blog/254825/
+
+4.3.2
+https://youtu.be/yAlm-jTneeY
+https://guides.hexlet.io/dns/
+
+4.3.3
+https://youtu.be/RlccXUx4LVw
+https://habr.com/ru/post/215117/
+https://developer.mozilla.org/ru/docs/Web/HTTP/Overview
+
+4.3.4
+https://youtu.be/eKCD9djJQKc
+https://www.andreyolegovich.ru/testing/api_testing.php
+
+4.3.5
+https://youtu.be/J4Fy6lmLBr0
+https://ymatuhin.ru/front-end/restful_api_for_frontender/
+http://spring-projects.ru/understanding/rest/
+https://medium.com/@andr.ivas12/rest-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%8B%D0%BC-%D1%8F%D0%B7%D1%8B%D0%BA%D0%BE%D0%BC-90a0bca0bc78
+
+4.3.6
+https://youtu.be/vGs0QDzRA4A
+https://medium.com/effective-developers/postman-%D0%BA%D0%B0%D0%BA-%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-api-6c0f76358cf2
+
+4.3.7
+Практическая задача
+Вам нужно изучить документацию к API, провести регистрацию, 
+аутентификацию (логин) и получить данные пользователя, 
+отсылая http запросы. 
+Для отправки http запросов будем использовать такой инструмент, 
+как Postman URL для запросов состоит из базового URL и пути для 
+конретного эндпоинта.
+То, в каком виде должен быть запрос - указано в документации.
+Формат данных в запросе - JSON, 
+если не знакомы с этим форматом - почитайте.
+
+Корневое API (без указания endpoint выдает json с ошибкой): http://karo-dev.ru:3000/api
+Документация по апи: https://github.com/gothinkster/realworld/tree/master/api
+
+Качаем Postman, дальше все запросы отправляем с его помощью
+Смотрим документацию
+Регистрируемся (Registration)
+Логинимся (Authentication)
+Используя заголовок авторизации получить данные текущего пользователя 
+(Endpoints -> Get Current User) с query parameter secret равному 42
+Прислать ментору содержимое заголовка ответа "X-SuperSecretCode" и 
+тело ответа
+
+
+Комменты
+Комментарии учеников (6)
+user avatar
+Артем Белый
+2021-10-27 14:31:00
+Если что можно не устанавливать postman, а сделать все здесь
+https://api.realworld.io/api-docs/
+ 0
+user avatar
+Вячеслав Николаев
+2021-07-28 23:00:46
+Хорошее видео про postman 
+https://www.youtube.com/watch?v=55l6XIEK9l0
+ 0
+user avatar
+Алексей Розпопов
+2021-06-28 20:46:32
+karo-dev больше не функционирует. 
+Корневое апи теперь имеет вид: https://conduit.productionready.io
+ 1
+user avatar
+Илья Логинов
+2020-11-10 00:53:53
+Скачать приложение Postman — https://www.postman.com/downloads/
+Но можно и в браузере
+ 0
+user avatar
+Евгений Михайлов
+2020-09-10 16:39:07
+Чтобы вставить ссылку на репозиторий, 
+создал его на гитхабе с одним файлом README.md,
+ в который вставил ответ.
+ 3
+user avatar
+Даниил Гончаров
+2020-09-02 00:42:57
+Установить постман было сложнее чем сделать задание. 
+P.S. у кого 2 монитора постман может не запускаться после установки.
+ 1
+
+
+ 4.3.8
+ https://youtu.be/q40cTfHq4WM
+ https://learn.javascript.ru/cookie
+*/
+
+// const user = {
+//  name: 'Bob',
+//  funcFunc() {
+//   return function () {
+//    console.log(this);
+//   };
+//  },
+//  funcArrow() {
+//   return () => {
+//    console.log(this);
+//   };
+//  },
+//  arrowFunc: () => {
+//   return function () {
+//    console.log(this);
+//   };
+//  },
+//  arrowArrow: () => {
+//   return () => {
+//    console.log(this);
+//   };
+//  },
+// };
+
+// user.funcFunc()(); //1 вызывается в контексте юзера, вторая не вызывается в контексте
+// user.funcArrow()(); //посмотреть позднее и раннее связывание Нельзя использовать в евентах в япи тоже не использовать
+// user.arrowFunc()();
+// user.arrowArrow()();
+
+// const user2 = {
+//  name: 'Jim',
+//  funcFunc: user.funcFunc(),
+//  funcArrow: user.funcArrow(),
+//  arrowFunc: user.arrowFunc(),
+//  arrowArrow: user.arrowArrow(),
+// };
+// user2.funcFunc();
+// user2.funcArrow();
+// user2.arrowFunc();
+// user2.arrowArrow();
+
+// Напишите функцию, которая принимает первым параметром объект,
+// вторым - цепочку свойств, по которой нужно пройти, чтобы получить значение.
+// Если какое-то из свойств не найдено - функция возвращает undefined.
+// Пример:
+// */
+// const obj = {
+//  a: {
+//   b: {
+//    c: {
+//     d: 'Привет!',
+//    },
+//   },
+//  },
+// };
+
+// function optionalChaining(o, path) {
+//  const pathArray = path.split('.');
+//  for (let i = 0; i < pathArray.length - 1; i++) {
+//   o = o[pathArray[i]];
+//   if (typeof o !== 'object') return undefined;
+//  }
+//  return o[pathArray[pathArray.length - 1]];
+// }
+//  for (let i = 0; i < pathArray.length; i++) {
+//   if(o[pathArray[i]]!=="undefined")
+//   console.log(o[pathArray[i]]);
+//  }
+
+// console.log(optionalChaining(obj, 'a.b.c')); // { d: 'Привет' }
+// console.log(optionalChaining(obj, 'a.b.c.d')); // Привет
+// console.log(optionalChaining(obj, 'a.b.c.d.e')); // undefined
+// console.log(optionalChaining(obj, 'b.d.a')); // undefined
+// console.log(optionalChaining(obj, ''));
+
+// ____________________________________________
+// console.log('1');
+
+// useEffect(() => {
+// 	console.log('2');
+
+// 	return () => { console.log('3'); };
+// }, [props.a]);
+
+// mount => change props.a => change props.b => unmount
+// Вы11:26
+// 1 1 2 3
+// Даниил Майковский11:26
+// mount = 1 2
+// 3
+// 1 2
+// 1
+// 3
+// Вы11:27
+// 1 2  3 1 2  1 3
+// ____________________________________________
+
+// new Promise((res) => res())
+//  .then(() => {
+//   throw new Error('Ошибка');
+//   console.log(2);
+//  })
+//  .catch((err) => {
+//   console.log(1);
+//   throw err;
+//  })
+//  .then(() => console.log(3))
+//  .catch(() => console.log(4))
+//  .then(() => console.log(5))
+//  .catch(() => console.log(6));
+
+// Ответ:1 4 5
+// =======================================================
+// console.log('start');
+// const fn = () =>
+//  new Promise((resolve, reject) => {
+//   console.log('1');
+//   resolve('success');
+//  });
+// console.log('middle');
+// fn().then((res) => {
+//  console.log(res);
+// });
+// console.log('end');
+// ==========================================================
+// const arr1 = [A, B, C, D]
+// const arr2 = [X, Y, Z]
+
+// [
+// [A, B, C, D, X, Y, Z]
+// [A, B, C, D, X, Y]
+// [A, B, C, D, X,]
+// [A, B, C, X, Y, Z]
+// [A, B, C, X, Y]
+// [A, B, C, X,]
+// [A, B, X, Y, Z]
+// [A, B, X, Y]
+// [A, B, X,]
+// [A, X, Y, Z]
+// [A, X, Y]
+// [A, X,]
+// ]
+// Есть идеи для функции, которая будет возвращать такой результат, на рекурсии ? )
+// func(arr1, arr2) {
+// let a=arr1.length
+// let b = arr2.length
+// function foo (l1, l2){
+
+// }
+// }
+
+// console.log(Number.isFinite('0'));
+// var a = {},
+//  b = { key: 'b' },
+//  c = { key: 'c' };
+
+// a[b] = 123;
+// a[c] = 456;
+
+// console.log(a[b]);
+
+// Задача
+// Написать функцию, которая склеивает строки через разделитель использовать rest
+
+// function stringJoin(a, ...other) {
+//  console.log(other.join(a));
+// }
+// stringJoin(' " ', '1', '5', '7'); //вернет'1"5"7"'
+
+// Реализовать функционал, который позволит работать с числами используя чейнинг
+// Number.prototype.plus = function (x) {};
+// 5.plus(2).minus(5)
+// =========================================================
+// const f = () => {};
+// const f2 = f.bind(null);
+// const f3 = f.bind(null);
+// console.log(f2 == f3);
+// ============================================================
+// const getPrоmise = (number) =>
+//  new Promise((resolve) => {
+//   console.log(number);
+//   resolve();
+//  });
+
+// getPrоmise(2)
+//  .then(() => {
+//   getPrоmise(1);
+//  })
+//  .then(() => {
+//   console.log(3);
+//  });
+// ==============================================================
+// Даны уникальные маршруты, которые хранят доступные даты поездки. Необходимо получить даты из маршрутов в виде отдельного массива:
+// / Уникальные маршруты:
+
+// const routes = {
+//  r4ffe2: {
+//   price: 23444,
+//   dates: ['30092020', '11092020'],
+//   currency: 'RUB',
+//  },
+//  o34p5: {
+//   dates: ['13112021', '14082021'],
+//   price: 11454,
+//   currency: 'RUB',
+//  },
+// };
+
+// // Необходимо получить: ["30092020", "11092020", "13112021", "14082021"]
+
+// function getRoutesDates(data) {
+//  let obj = [];
+//  for (let key in data) {
+//   obj.push(...data[key].dates);
+//  }
+//  return obj;
+// }
+
+// console.log(getRoutesDates(routes));
+// ==========================================================
+// const foо =
+//  (a) =>
+//  (b = 2) =>
+//   a + b;
+
+// console.log(foо('10')());
+// ===========================================================
+// const a = [];
+// let i = 0;
+
+// while (i !== 10) {
+//  а[i++] = functiоn(){return i;}
+
+// }
+
+// console.log(a[3]());
+// ================================================================
+// Написать функцию, которая принимает на вход значение элемента и массив, и возвращает массив без этого элемента
+// function removeItemFromList(item, list) {
+//  list.splice(list.indexOf(item), 1);
+//  return list;
+// }
+
+// console.log(removeItemFromList(2, [1, 2, 3, 4, 5]));
+// =====================================================================
+// const animal = 'snake';
+// function makeShout() {
+//  let animal = 'cat';
+//  const shout = function () {
+//   console.log(animal);
+//  };
+//  animal = 'dog';
+//  return shout;
+// }
+
+// shout = makeShout();
+// shout();
+
+// shout = function () {
+//  console.log(animal);
+// };
+// shout();
+// ==========================================================================
+// Необходимо написать такую функцию sum, которую можно вызвать сколько угодно раз и эта функция вернет сумму аргументов из всех предыдущих вызовов.
+// Например: sum(1)(5)(4) == 10
+// function sum(arg) {
+//  const localSum = function (arg, res) {
+//   if (arg === undefined) return res;
+//   res = (res || 0) + arg;
+//   return function (arg) {
+//    return localSum(arg, res);
+//   };
+//  };
+//  return localSum(arg);
+// }
+// console.log(sum(1)(5)(4)());
+// ============================================================================

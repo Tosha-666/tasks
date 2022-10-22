@@ -3432,3 +3432,236 @@ P.S. у кого 2 монитора постман может не запуск�
 // }
 // console.log(sum(1)(5)(4)());
 // ============================================================================
+
+// function fn() {
+//  console.log('hello'); // 1
+
+//  setTimeout(function () {
+//   console.log('setTimeout1'); //  6
+//  }, 0);
+
+//  new Promise(function (resolve) {
+//   console.log('new'); // 2
+//   resolve();
+//  })
+//   .then(function () {
+//    console.log('then1'); //  3
+//   })
+//   .then(function () {
+//    console.log('then2'); // 4
+//   });
+
+//  console.log('bye'); //  5
+// }
+// // ========================================================================
+// function fn() {
+//  console.log('hello'); //
+
+//  setTimeout(function () {
+//   console.log('setTimeout1'); //
+//  }, 0);
+
+//  new Promise(function (resolve) {
+//   console.log('new'); //
+//   resolve();
+//  })
+//   .then(function () {
+//    console.log('then1'); //
+//   })
+//   .then(function () {
+//    console.log('then2'); //
+//   });
+
+//  console.log('bye'); //
+// }
+
+// fn();
+// // =======================================================================
+// var x = { a: 1, b: 2 };
+
+// function fn1(x) {
+//  x.a = 5;
+// }
+
+// function fn2() {
+//  x.a = 5;
+// }
+
+// function fn3(x) {
+//  x = 5;
+// }
+
+// function fn4() {
+//  x = 5;
+// }
+// fn1(x);
+// console.log(x); // ?
+
+// fn2(x);
+// console.log(x); // ?
+
+// fn3(x);
+// console.log(x); // ?
+
+// fn4(x);
+// console.log(x); // ?
+
+// const arr = [1, 2, [2, 5, 3, [32, 5], 3], 7, 4];
+
+// const sum = (arr) =>
+//  arr.reduce((res, el) => res + (Array.isArray(el) ? sum(el) : el), 0);
+
+// console.log(sum(arr));
+
+// const init=function(val){
+// return this
+// }
+
+// console.log(init(5).plus(2).minus(3).final());
+
+// enum Role{
+// admin, user,
+// }
+// interface ar {
+
+// }
+// console.log(Number.isFinite('0'));
+// console.log(!!new Number(0));
+// console.log(!!'');
+// console.log(!!' ');
+// console.log(!!Boolean(false));
+// console.log(!!new Boolean(false));
+
+// 0;
+// const obj = {
+//  a: 1,
+//  e: {
+//   b: 1,
+//   c: {
+//    d: 6,
+//   },
+//  },
+// };
+
+// function foo(o) {
+//  let acc = {};
+
+//  function select(val) {
+//   if (typeof key === 'object') {
+//    acc;
+//   }
+//  }
+//  for (key in o) {
+//   if (typeof key === 'object') {
+//   }
+//  }
+// }
+// foo(obj);
+// ==============================================================
+// let countClicks = 0;
+// button.addEventListener('click', function clickHandler() {
+// countClicks++;
+// });
+
+// const result = (function immediate(number) {
+// const message = number is: ${number};
+// return message;
+// })(100);
+
+// setTimeout(function delayedReload() {
+// location.reload();
+// }, 1000);
+// =============================================================
+// Реализовать функцию -chaining
+// class Box {
+//  constructor(v) {
+//   this.value = v;
+//  }
+//  plus(v) {
+//   this.value += v;
+//   return this;
+//  }
+//  minus(v) {
+//   this.value -= v;
+//   return this;
+//  }
+//  final() {
+//   return this.value;
+//  }
+// }
+
+// const val = new Box(2);
+// // console.log(value);
+// console.log(val.plus(2).minus(3).final());
+
+// Другой вариант реализации
+function calc(val) {
+ const self = Object.create(calc.prototype);
+ console.log(self);
+ self.val = val;
+ return self;
+}
+calc.prototype = {
+ plus(val) {
+  this.val += val;
+  return this;
+ },
+ minus(val) {
+  this.val -= val;
+  return this;
+ },
+ valueOf() {
+  return this.val;
+ },
+};
+
+console.log(calc(0).plus(1));
+console.log(calc(1).plus(1).plus(1));
+console.log(calc(1).plus(2).plus(3).plus(4).minus(5));
+console.log(99 + calc(1));
+console.log();
+
+calc(3).plus(7).minus(2) * 3; // 24
+99 + calc(1); // 100
+// ===========================================================
+// const a = { a: 10, b: 100, c: 1000 };
+
+// const mutate = (data) => {
+//  data.a = 100;
+//  return data;
+// };
+
+// const workflow = (data) => {
+//  const newData = mutate(data);
+//  console.log(data);
+//  console.log(newData);
+// };
+// workflow(a);
+
+//   Promise.resolve()
+//     .then(() => console.log(1))
+//     .then(() => console.log(2))
+
+// Promise.resolve()
+//     .then(() => console.log(11))
+//     .then(() => console.log(12))
+// =========================================================
+// const processItem = (item) => {
+//  let { name, skills } = item;
+//  name = 'Big' + name;
+//  skills.push('GIT');
+//  return {
+//   name,
+//   skills,
+//   isProcessed: true,
+//  };
+// };
+
+// const persona = {
+//  name: 'Jhon',
+//  skills: ['HTML', 'JS', 'CSS'],
+// };
+
+// const processedPersona = processItem(persona);
+// console.log(persona);
+// console.log(processedPersona);
